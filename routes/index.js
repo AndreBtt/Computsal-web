@@ -1,11 +1,10 @@
 var express = require('express')
-  , router = express.Router()
+var router = express.Router()
 
-// router.use('/comments', require('./comments'))
-// router.use('/users', require('./users'))
+var controller = require('../controllers/index')
 
-router.get('/', (req, res) => {
-  res.render('index', {})
-});
+router.get('/', controller.index)
+
+router.use('/times', require('./teams'))
 
 module.exports = router
