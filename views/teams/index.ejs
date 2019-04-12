@@ -11,13 +11,7 @@
         <div class="row">
             <% for(var i = 0; i < teams.length; i++){%>
                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                    <div class="sample">
-                        <div class="overlay-image">
-                            <a href="times/<%= teams[i].name %>">
-                                <img class="image" src="https://images.pexels.com/photos/262524/pexels-photo-262524.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="<%= teams[i].name %>" />                        
-                            </a>
-                        </div>
-                    </div>
+                        <a href="times/<%= teams[i].name %>"><%= teams[i].name %></a>
                 </div>
             <%}%>
         </div>

@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+    </head>
+<body>
+
+    <h2>Jogos</h2>
+
+    <% if(matches.length > 0) { %>
+
+        <% let currentPhase = matches[0].phase %>
+        <section>
+        <h3>Rodada <%= matches[0].phase %></h3>
+
+        <% for(var i = 0; i < matches.length; i++) { %>
+            <% if(currentPhase != matches[i].phase) { %>
+                </section>
+                <section>
+                <h3>Rodada <%= matches[i].phase %></h3>
+            <% } %>
+            <a href="/jogosAnteriores/<%= matches[i].id %>"> <p><%= matches[i].team1 %> <%= matches[i].score1 %> x <%= matches[i].score2 %> <%= matches[i].team2 %></p> </a>
+        <% } %>
+
+        </section>
+    <% } else { %>
+        <h1>Nao tivemos jogos ainda</h1>
+    <% } %>
+
+</body>
+</html>

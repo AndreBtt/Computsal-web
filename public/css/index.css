@@ -1,34 +1,70 @@
-:after,*{transition: all 0.35s ease;
-    -webkit-transition: all 0.35s ease;
-    -moz-transition: all 0.35s ease;
-    -moz-transition: all 0.35s ease;
-    -ms-transition: all 0.35s ease;
-    -o-transition: all 0.35s ease;}
-    img{max-width:100%;}
-    .sample{background:#000;margin-bottom:15px;float:left;position:relative;text-align:center;line-height:100px;font-size:18px;position:relative;box-shadow:5px 5px 10px #888;overflow:hidden}
-    .sample .top{position:absolute;top:5%; left:5%;width:90%;height:2px;background:#542222;}
-    .sample .top:after{position:absolute;top:0; left:0;width:50px;height:2px;background:#ff0000;content:"";}
-    .sample .right{position:absolute;top:5%; right:5%;height:90%;width:2px;background:#542222;}
-    .sample .right:after{position:absolute;top:0; left:0;height:50px;width:2px;background:#ff0000;content:""}
-    .sample .bottom{    position: absolute;    bottom: 5%;    right: 5%;    height: 2px;    width: 90%;    background: #542222;}
-    .sample .bottom:after{position:absolute;top:0; right:0;width:50px;height:2px;background:#ff0000;content:""}
-    .sample .left{    position: absolute;    bottom: 5%;    left: 5%;    height: 90%;    width:2px;    background: #542222;}
-    .sample .left:after{ position:absolute;bottom:0; left:0;height:50px;width:2px;background:#ff0000;content:""}
-    .sample:hover .top:after{width:100%;background:#fff}
-    .sample:hover .left:after{height:100%;background:#fff}
-    .sample:hover .bottom:after{width:100%;background:#fff}
-    .sample:hover .right:after{height:100%;background:#fff}
-    /* .sample:hover img{transform:scale(1.1)} */
+img{
+    max-width:100%;
+    position:relative;
+    line-height:100px;
+    font-size:18px;
+    box-shadow:5px 5px 10px #888;
+    overflow:hidden;
+}
+
+.parallax {
+    /* The image used */
+    background-image: url("/img/photos/3.jpg");
+    filter: brightness(20%);
+    opacity: 0.7;
+
+    /* Set a specific height */
+    min-height: 1000px; 
+
+    /* transition:1s;  */
+
+    /* Create the parallax scrolling effect */
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+}
+
+.parallax_text_box {
+    text-align: center;
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.top {
+    position: relative;
+    z-index: 1;
+}
+
+.title {
+    font-size: 8.5vw;
+    color: 	#43b699;
+}
+.subTitle {
+    font-size: 2.5vw;
+    color: 	#43b699;
+}
+
+.text_img {
+    text-align: center;
+    position: relative;
+}
+
+.option {
+    margin-top: 5%;
+}
+
+.img_option {
+    opacity: 0.3;
+}
 
 .centered {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-}
-
-
-img {
-    opacity: 0.3;
-    filter: alpha(opacity=50); /* For IE8 and earlier */
-}
+    font-size: 5vw;
+  }
