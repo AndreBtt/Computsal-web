@@ -3,7 +3,6 @@ img{
     position:relative;
     line-height:100px;
     font-size:18px;
-    box-shadow:5px 5px 10px #888;
     overflow:hidden;
 }
 
@@ -15,8 +14,6 @@ img{
 
     /* Set a specific height */
     min-height: 1000px; 
-
-    /* transition:1s;  */
 
     /* Create the parallax scrolling effect */
     background-attachment: fixed;
@@ -44,8 +41,8 @@ img{
     color: 	#43b699;
 }
 .subTitle {
-    font-size: 2.5vw;
-    color: 	#43b699;
+    font-size: 2.8vw;
+    color: 	#272621;
 }
 
 .text_img {
@@ -67,4 +64,5 @@ img{
     left: 50%;
     transform: translate(-50%, -50%);
     font-size: 5vw;
-  }
+    text-align: center;
+}
