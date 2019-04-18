@@ -1,5 +1,6 @@
 $(document).ready(function() {
-    changeImages()
+    // changeImages()
+    $('.cb-slideshow ').css("min-height", "" + $(window).height() + "px");
 });
 
 function changeImages() {
@@ -8,6 +9,7 @@ function changeImages() {
     "/img/photos/6.jpg", "/img/photos/7.jpg", "/img/photos/8.jpg",
     "/img/photos/9.jpg", "/img/photos/10.jpg"]
 
+    // $('.parallax').css("background-image", "url(" + imgs[0] + ")" );
     let cont = 1;
 
     function changeBg() {

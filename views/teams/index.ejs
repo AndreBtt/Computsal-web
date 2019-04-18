@@ -1,27 +1,41 @@
 <!DOCTYPE HTML>
 <html>
 	<head>
-        <link rel="stylesheet" href="/css/index.css">
-        <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-        <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-        <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="/css/teams/index.css">
     </head>
 <body>
-    <div class="container">
-        <div class="row">
-            <% for(var i = 0; i < teams.length; i++){%>
-                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                        <a href="times/<%= teams[i].name %>"><%= teams[i].name %></a>
-                </div>
-            <%}%>
-        </div>
-    </div>
-
-    <form method="post" action="/times">
-        <input type="text" name="name">
-        <input type="text" name="email">
-        <input type="submit" value="Submit">
-    </form>
-
+    <ul id="rig">
+        <li>
+            <a class="rig-cell"  href="/times/gol++">
+                <span class="rig-img" style="background-image:url(/img/gol++.png);"></span>
+                <h3>Gol++</h3>
+                <span class="rig-overlay"></span>
+            </a>
+        </li>
+        <li>
+            <a class="rig-cell" href="#">
+                <span class="rig-img" style="background-image:url(/img/horri.png);"></span>
+                <h3>Horriver Plate</h3>
+                <span class="rig-overlay"></span>
+            </a>
+        </li>
+        <li>
+            <a class="rig-cell" href="#">
+                <span class="rig-img" style="background-image:url(/img/barc.png);"></span>
+                <h3>Barcelombra</h3>
+                <span class="rig-overlay"></span>
+            </a>
+        </li>
+        <% for(var i = 0; i < teams.length; i++) { %>
+            <li>
+                <a class="rig-cell" href="/times/<%= teams[i].name %>">
+                    <span class="rig-img" style="background-image:url(<%= teams[i].photo %>);"></span>
+                    <h3><%= teams[i].name %></h3>
+                    <span class="rig-overlay"></span>
+                </a>
+            </li>
+        <% } %>
+    </ul>
 </body>
 </html>

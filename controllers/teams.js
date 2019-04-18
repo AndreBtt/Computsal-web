@@ -1,7 +1,7 @@
 var Request = require("request");
 
-let API = "https://floating-reef-49922.herokuapp.com"
-// let API = "http://localhost:8080"
+// let API = "https://floating-reef-49922.herokuapp.com"
+let API = "http://localhost:8080"
 
 // show all teams
 exports.index = function(req, res) {
@@ -30,23 +30,23 @@ exports.team = function(req, res) {
 // create a team
 exports.create = function(req, res) {
 
-    let teamCreate = {
-        "name" : "gol++",
-        "photo": "www",
-        "players": 
-            [
-                {
-                    "name" : "andre"		
-                }
-            ],
-        "captain_email" : "email"
-    }
+    // let teamCreate = {
+    //     "name" : "gol++",
+    //     "photo": "www",
+    //     "players": 
+    //         [
+    //             {
+    //                 "name" : "andre"		
+    //             }
+    //         ],
+    //     "captain_email" : "email"
+    // }
 
-    teamCreate.players.push({
-        "name" : "novo jogador"
-    })
+    // teamCreate.players.push({
+    //     "name" : "novo jogador"
+    // })
 
-    console.log(teamCreate)
+    // console.log(teamCreate)
 
     // Request({
     //     url: API + "/teams",
@@ -59,6 +59,7 @@ exports.create = function(req, res) {
     //     }
     //     console.log(response.statusCode);
     // });
+    res.render('teams/create')
 }
 
 exports.update = function(req, res) {

@@ -10,7 +10,7 @@ exports.index = function(req, res) {
             return console.dir(error);
         }
         let matches = JSON.parse(body)
-        console.log(matches)
+
         res.render('previousMatches/index', {matches : matches})
     });
 }

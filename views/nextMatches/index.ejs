@@ -1,0 +1,31 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" href="/css/nextMatches/index.css">
+    </head>
+<body>
+    <div class="container">
+        <table>
+            <tr>
+                <th colspan="3" class="text-center round">PROXIMA RODADA</th>
+            </tr>
+            <% for (var i = 0; i < matches.length; i++) { %>
+                <tr>
+                    <td class="text-right">
+                        <span class="team-name"> <%= matches[i].team1 %> </span>
+                        <img src="/img/<%= matches[i].photo1 %>" width="70" height="70">
+                        <h3 class="team-name-mobile"><%= matches[i].team1 %></h3>
+                    </td>
+                    <td class="text-center">
+                        <h4><%= matches[i].time.substring(0, matches[i].time.length - 3) %></h4>
+                    </td>
+                    <td class="text-left"><h3><img src="/img/<%= matches[i].photo2 %>" width="70" height="70"><%= matches[i].team2 %></h3></td>
+                </tr>
+            <% } %>
+        </table>
+</div>
+
+</body>
+</html>
