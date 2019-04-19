@@ -1,15 +1,98 @@
 <!DOCTYPE HTML>
 <html>
 	<head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" href="/css/teams/team.css">
     </head>
 <body>
-    <p><%= team.id %></p>
-    <p><%= team.name %></p>
-    <p><%= team.group %></p>
-    <p><%= team.win %></p>
-    <p><%= team.lose %></p>
-    <p><%= team.draw %></p>
+    <div class="container">
+        <div class="row">
+            <div class="col-6">
+                <div class="text-center">
+                    <img src="/img/gol++.png" width="200" height="200">
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="vertical-center">
+                <h2>Gol++</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <ul id="menu">
+                <li>Vitorias : <%= team.win %></li>
+                <li>Derrotas : <%= team.lose %></li>
+                <li>Empates : <%= team.draw %></li>
+            </ul>    
+        </div>
+        <div class="row">
+            <table>
+                <tr>
+                    <th>Jogador</th>
+                    <th>Gols</th>
+                    <th>Amarelos</th>
+                    <th>Vermelhos</th>
+                </tr>
+                <% for (var i = 0; i < team.players.length; i++) { %>
+                    <% let player = team.players[i] %> 
+                    <tr>
+                        <td><%= player.name %></td>
+                        <td><%= player.score %></td>
+                        <td><%= player.yellowCard %></td>
+                        <td><%= player.redCard %></td>
+                    </tr>
+                <% } %>
+            </table>
+        </div>
+        
+        <div class="row">
+            <table>
+                <% let round = 0 %>
+                <% let map = new Map() %>
+                <% map.set(1, "FINAL") %>
+                <% map.set(2, "SEMI FINAL") %>
+                <% map.set(4, "QUARTAS DE FINAL") %>
+                <% map.set(8, "OITAVAS DE FINAL") %>
+                <% let matches = team.previous_matches %>
 
-    <a href="update/<%= team.name %>">UPDATE</a>
+                <tr>
+                    <th colspan="3" class="text-center round">JOGOS PASSADOS</th>
+                </tr>
+
+                <% for (var i = 0; i < matches.length; i++) { %>
+                    <% if (matches[i].type !== 0) { %>
+                        <!-- elimination phase -->
+                        <tr>
+                            <th colspan="3" class="text-center round"><%= map.get(matches[i].type) %></th>
+                        </tr>
+                    <% } else if (round !== matches[i].phase) { %>
+                        <!-- group phase -->
+                        <tr>
+                            <th colspan="3" class="text-center round">RODADA <%= matches[i].phase %></th>
+                        </tr>
+                        <% round = matches[i].phase %>
+                    <% } %>
+                    <tr>
+                        <td class="text-right">
+                            <span class="team-name"><%= matches[i].team1 %></span>
+                            <img src="/img/<%= matches[i].photo1 %>" width="70" height="70">
+                            <h3 class="team-name-mobile"><%= matches[i].team1%></h3>
+                        </td>
+                        <td class="text-center">
+                                <h4><%= matches[i].score1 %> <span class="small-X">x</span> <%= matches[i].score2 %></h4>
+                                <a href="/jogosAnteriores/<%= matches[i].id %>"><h6>Detalhes do jogo</h6></a>
+                        </td>
+                        <td class="text-left">
+                            <h3>
+                                <img src="/img/<%= matches[i].photo2 %>" width="70" height="70"><%= matches[i].team2 %>
+                            </h3>
+                        </td>
+                    </tr>
+
+                <% } %>
+            </table>
+        </div>
+    </div>
 </body>
 </html>

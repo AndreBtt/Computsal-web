@@ -10,7 +10,7 @@ router.get('/teste', function(req,res) {
 })
 
 router.use('/times', require('./teams'))
-router.use('/jogosAnteriores', require('./previousMatches'))
+router.use('/jogosPassados', require('./previousMatches'))
 router.use('/proximosJogos', require('./nextMatches'))
 router.use('/artilharia', require('./score'))
 

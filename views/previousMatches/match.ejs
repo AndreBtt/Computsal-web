@@ -1,11 +1,48 @@
 <!DOCTYPE HTML>
 <html>
 	<head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" href="/css/previousMatches/match.css">
     </head>
 <body>
-
-    <h2><%= match.team1 %></h2>
-    <h2><%= match.team2 %></h2>
-
+    <div class="container">
+            <table>
+                <tr>
+                    <td class="text-right">
+                        <span class="team-name"><%= match.team1 %></span>
+                        <img src="/img/<%= match.photo1 %>" width="70" height="70">
+                        <h3 class="team-name-mobile"><%= match.team1 %></h3>
+                    </td>
+                    <td class="text-center">
+                            <h4><%= match.score1 %> <span class="small-X">x</span> <%= match.score2 %></h4>
+                    </td>
+                    <td class="text-left">
+                        <h3>
+                            <img src="/img/<%= match.photo2 %>" width="70" height="70"><%= match.team2 %>
+                        </h3>
+                    </td>
+                </tr>
+            </table>
+            <table>
+                <tr>
+                    <th>Jogador</th>
+                    <th>Time</th>
+                    <th>Gols</th>
+                    <th>Amarelos</th>
+                    <th>Vermelhos</th>
+                </tr>
+                <% for (var i = 0; i < match.players.length; i++) { %>
+                    <% let playerDetails = match.players[i] %> 
+                    <tr>
+                        <td><%= playerDetails.player.name %></td>
+                        <td><%= playerDetails.player.team %></td>
+                        <td><%= playerDetails.score %></td>
+                        <td><%= playerDetails.yellowCard %></td>
+                        <td><%= playerDetails.redCard %></td>
+                    </tr>
+                <% } %>
+            </table>
+    </div>
 </body>
 </html>

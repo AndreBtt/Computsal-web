@@ -1,0 +1,34 @@
+body {
+    margin-top: 50px;
+}
+
+.vertical-center {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+  }
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    table-layout: fixed;
+}
+  
+th {
+    padding-top: 8px;
+    padding-bottom: 8px;
+    text-align: left;
+    /* border-bottom: solid #272621; */
+}
+
+/* tr:nth-child(even) {
+    background-color: #dddddd;
+} */
+
+td { 
+    width: 33%; 
+    border-bottom: 1px solid #272621;
+    padding-top: 15px;
+}

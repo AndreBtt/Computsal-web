@@ -1,0 +1,58 @@
+body {
+    margin-top: 50px;
+}
+table {
+    border-collapse: collapse;
+    width: 100%;
+    table-layout: fixed;
+}
+  
+th {
+    padding-top: 8px;
+    padding-bottom: 8px;
+    text-align: left;
+    /* border-bottom: solid #272621; */
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+
+td { 
+    width: 33%; 
+    border-bottom: 1px solid #272621;
+    padding-top: 15px;
+}
+
+.small-X {
+    font-size: 18px;
+}
+
+.round {
+    margin-top: 50px;
+    background-color: #272621;
+    color: white;
+    font-size: 20px;
+}
+
+.team-name-mobile { 
+    display: none; 
+}
+
+.team-name { 
+    font-size: 25px;
+}
+
+@media only screen and (max-width: 600px) {
+    .team-name { display: none; }
+    .team-name-mobile { 
+        display: inline-block;
+        text-align: center;
+    }
+    .text-right {
+        padding-right: 10%;
+    }
+    .text-left {
+        padding-left: 10%;
+    }
+}
