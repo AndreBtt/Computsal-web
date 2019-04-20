@@ -1,0 +1,62 @@
+.gols {
+    margin-left: auto;
+    padding-right: 20px;
+    color: #ddd;
+    font-family: 'opensans-bold',arial,sans-serif;
+    font-size: 26px;
+}
+
+.ranking {
+    border-bottom: 1px solid #DDD;
+    display: flex;
+    align-items: center;
+}
+
+.jogador {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 78px;
+}
+
+.ranking-header {
+    display: flex;
+    align-items: center;
+    height: 40px;
+    border-width: 0;
+    border-style: solid;
+    border-color: #ddd;
+    color: #999;
+    font-size: 11px;
+    text-transform: uppercase;
+}
+
+.ranking-headerGols {
+    margin-left: auto;
+    padding-right: 20px;        
+}
+
+.nome {
+    margin: 0;
+    font-size: 20px;
+}
+
+.ranking-item {
+    width: 30px;
+    color: #43b699;
+    font-family: opensans,arial,sans-serif;
+    font-size: 28px;
+}
+
+@media(min-width:768px) {
+    .ranking-header {
+        font-size: 20px;
+    }
+    .nome {
+        font-size: 40px;
+    }
+
+    .time {
+        font-size: 20px;
+    }
+}

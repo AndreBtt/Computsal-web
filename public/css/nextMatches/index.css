@@ -1,49 +1,32 @@
-body {
-    margin-top: 50px;
+.ranking {
+    border-bottom: 1px solid #DDD;
+    display: flex;
+    align-items: center;
 }
-table {
-    border-collapse: collapse;
+
+.jogador {
+    display: flex;
+    align-items: center;
     width: 100%;
-    table-layout: fixed;
-}
-  
-th {
-    padding: 8px;
-    text-align: left;
-    border-bottom: solid #272621;
+    height: 78px;
 }
 
-td { 
-    width: 33%; 
-    border-bottom: 1px solid #272621;
-    padding-top: 15px;
+.time {
+    font-size: 15px;
+    color: #43b699;
 }
 
-.round {
-    margin-top: 50px;
-    background-color: #272621;
-    color: white;
+.tempo {
     font-size: 20px;
+    /* color: #43b699; */
 }
 
-.team-name-mobile { 
-    display: none; 
-}
-
-.team-name { 
-    font-size: 25px;
-}
-
-@media only screen and (max-width: 600px) {
-    .team-name { display: none; }
-    .team-name-mobile { 
-        display: inline-block;
-        text-align: center;
+@media(min-width:768px) {
+    .time {
+        font-size: 30px;
     }
-    .text-right {
-        padding-right: 10%;
-    }
-    .text-left {
-        padding-left: 10%;
+
+    .tempo {
+        font-size: 40px;
     }
 }

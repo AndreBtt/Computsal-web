@@ -1,31 +1,105 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html>
-	<head>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-        <link rel="stylesheet" href="/css/nextMatches/index.css">
-    </head>
-<body>
-    <div class="container">
-        <table>
-            <tr>
-                <th colspan="3" class="text-center round">PROXIMA RODADA</th>
-            </tr>
-            <% for (var i = 0; i < matches.length; i++) { %>
-                <tr>
-                    <td class="text-right">
-                        <span class="team-name"> <%= matches[i].team1 %> </span>
-                        <img src="/img/<%= matches[i].photo1 %>" width="70" height="70">
-                        <h3 class="team-name-mobile"><%= matches[i].team1 %></h3>
-                    </td>
-                    <td class="text-center">
-                        <h4><%= matches[i].time.substring(0, matches[i].time.length - 3) %></h4>
-                    </td>
-                    <td class="text-left"><h3><img src="/img/<%= matches[i].photo2 %>" width="70" height="70"><%= matches[i].team2 %></h3></td>
-                </tr>
-            <% } %>
-        </table>
-</div>
+  <head>
+    <meta charset="utf-8">
+    <title>Computsal</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/animate.min.css" />
+    <link rel="stylesheet" href="/css/main.css" />
+    <link rel="stylesheet" href="/css/nextMatches/index.css" />
+  </head>
+  <body>
+    <nav id="topNav" class="navbar navbar-default navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand page-scroll" href="/"> Computsal</a>
+            </div>
+            <div class="navbar-collapse collapse" id="bs-navbar">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a class="page-scroll" data-toggle="modal" href="#login">Login</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+    <section id="two">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2 class="margin-top-0 text-primary">Próximos jogos</h2>
+                    <hr class="primary">
+                </div>
+            </div>
+        </div>
+        <div class="container">
 
-</body>
-</html>
+            <% let seconds = 0 %>
+
+            <% for (var i = 0; i < matches.length; i++) { %>
+                <% if(seconds < 5) seconds++ %>
+                <% let delay = "." + seconds + "s" %>
+                <div class="ranking wow fadeIn" data-wow-delay="<%=delay%>">
+                    <div class="jogador">
+                        <div class="col-lg-5 col-md-5 col-xs-6">
+                            <span class="time"><%= matches[i].team1 %></span>
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-xs-6 text-center">
+                            <span class="tempo"><%= matches[i].time.substring(0, matches[i].time.length - 3) %></span>
+                        </div>
+                        <div class="col-lg-5 col-md-5 col-xs-6 text-right">
+                                <span class="time"><%= matches[i].team2 %></span>
+                            </div> 
+                    </div>
+                </div>
+            <% } %>
+
+        </div>
+    </section>
+    <div id="login" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+        <div class="modal-content">
+        	<div class="modal-body">
+                <h2 class="text-center">Entrar / Criar conta</h2>
+                <form class="contact-form row">
+                    <div class="col-md-6">
+                        <label></label>
+                        <input type="text" class="form-control" placeholder="Email">
+                    </div>
+                    <div class="col-md-6">
+                        <label></label>
+                        <input type="password" class="form-control" placeholder="Senha">
+                    </div>
+                    <div class="col-md-12">
+                        <label></label>
+                        <button type="button" class="btn btn-primary btn-block btn-lg">Falta o face aqui </button>
+                    </div>
+                    <div class="col-md-6">
+                        <label></label>
+                        <button type="button" class="btn btn-primary btn-block btn-lg">Criar </button>
+                    </div>
+                    <div class="col-md-6">
+                        <label></label>
+                        <button type="button" class="btn btn-primary btn-block btn-lg">Entrar </button>
+                    </div>
+                </form>
+        	</div>
+        </div>
+        </div>
+    </div>
+    <!--scripts loaded here -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/jquery.easing.min.js"></script>
+    <script src="/js/home/wow.js"></script>
+    <script src="/js/home/index.js"></script>
+  </body>
+</html>  
