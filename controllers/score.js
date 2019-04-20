@@ -3,7 +3,6 @@ var Request = require("request");
 // let API = "https://floating-reef-49922.herokuapp.com"
 let API = "http://localhost:8080"
 
-// show previous matches
 exports.index = function(req, res) {
     Request.get(API + "/scores", (error, response, body) => {
         if(error) {

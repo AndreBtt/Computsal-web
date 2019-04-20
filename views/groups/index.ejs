@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="/css/bootstrap.min.css" />
     <link rel="stylesheet" href="/css/animate.min.css" />
     <link rel="stylesheet" href="/css/main.css" />
-    <link rel="stylesheet" href="/css/nextMatches/index.css" />
+    <link rel="stylesheet" href="/css/groups/index.css" />
   </head>
   <body>
     <nav id="topNav" class="navbar navbar-default navbar-fixed-top">
@@ -35,31 +35,57 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <h2 class="margin-top-0 text-primary">Próximos jogos</h2>
+                    <h2 class="margin-top-0 text-primary">Grupos</h2>
                     <hr class="primary">
                 </div>
             </div>
         </div>
+
         <div class="container">
 
-            <% let seconds = 0 %>
+            <div class="row">
+                <div class="col-lg-12 text-center">
 
-            <% for (var i = 0; i < matches.length; i++) { %>
-                <% if(seconds < 5) seconds++ %>
-                <% let delay = "." + seconds + "s" %>
-                <div class="ranking wow fadeIn" data-wow-delay="<%=delay%>">
-                    <div class="jogador">
-                        <div class="col-lg-5 col-md-5 col-xs-6">
-                            <span class="time"><%= matches[i].team1 %></span>
+                    <!-- Display group list -->
+                    <% for (var i = 1; i <= groupSize; i++) { %>
+
+                        <div class="col-lg-6 col-md-6 col-xs-6">
+                            <h2 onclick="displayGroup(<%= i %>,<%= groupSize %>)" class="round-size"><a href="#">Grupo <%= i %></a></h2>
                         </div>
-                        <div class="col-lg-2 col-md-2 col-xs-6 text-center">
-                            <span class="tempo"><%= matches[i].time.substring(0, matches[i].time.length - 3) %></span>
-                        </div>
-                        <div class="col-lg-5 col-md-5 col-xs-6 text-right">
-                            <span class="time"><%= matches[i].team2 %></span>
-                        </div> 
-                    </div>
+
+                    <% } %>
+                
                 </div>
+            </div>
+
+            <!-- Display teams on the selected group -->
+            <% for (var i = 1; i <= groupSize; i++) { %>
+
+                <div id="group<%=i%>" class="group">
+
+                    <div class="ranking-header"> 
+                        <div class="col-lg-1 col-md-1 col-xs-1">Ranking</div> 
+                        <div class="col-lg-7 col-md-7 col-xs-7 text-center">Time</div> 
+                        <div class="col-lg-1 col-md-1 col-xs-1">P</div> 
+                        <div class="col-lg-1 col-md-1 col-xs-1">V</div> 
+                        <div class="col-lg-1 col-md-1 col-xs-1">E</div> 
+                        <div class="col-lg-1 col-md-1 col-xs-1">D</div> 
+                    </div>
+
+                    <% for (var j = 0; j < groups[i-1].teams.length; j++) { %>
+                        <% team = (groups[i-1].teams)[j] %>
+                        <div class="ranking">
+                            <div class="col-lg-1 col-md-1 col-xs-1 text-center sec-color"><%= j+1 %></div> 
+                            <div class="col-lg-7 col-md-7 col-xs-7 text-center"><%= team.name %></div> 
+                            <div class="col-lg-1 col-md-1 col-xs-1 sec-color"><%= team.points %></div> 
+                            <div class="col-lg-1 col-md-1 col-xs-1"><%= team.win %></div> 
+                            <div class="col-lg-1 col-md-1 col-xs-1"><%= team.draw %></div> 
+                            <div class="col-lg-1 col-md-1 col-xs-1"><%= team.lose %></div> 
+                        </div>
+                    <% } %>
+
+                </div>
+
             <% } %>
 
         </div>
@@ -101,5 +127,6 @@
     <script src="/js/jquery.easing.min.js"></script>
     <script src="/js/home/wow.js"></script>
     <script src="/js/home/index.js"></script>
+    <script src="/js/groups/index.js"></script>
   </body>
 </html>  

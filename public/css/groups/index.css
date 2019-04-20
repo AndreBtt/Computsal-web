@@ -1,0 +1,41 @@
+.ranking {
+    border-bottom: 1px solid #DDD;
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.ranking-header {
+    display: flex;
+    align-items: center;
+    height: 40px;
+    border-width: 0;
+    border-style: solid;
+    border-color: #ddd;
+    color: #999;
+    font-size: 11px;
+    text-transform: uppercase;
+}
+
+.sec-color {
+    color: #43b699;
+}
+
+.group {
+    display: none;
+    margin-top: 6%;
+}
+
+.ranking {
+    font-size: 15px;
+}
+
+@media(min-width:768px) {
+    .ranking-header {
+        font-size: 20px;
+    }
+    
+    .ranking {
+        font-size: 30px;
+    }
+}

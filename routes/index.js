@@ -13,5 +13,6 @@ router.use('/times', require('./teams'))
 router.use('/jogosPassados', require('./previousMatches'))
 router.use('/proximosJogos', require('./nextMatches'))
 router.use('/artilharia', require('./score'))
+router.use('/grupos', require('./groups'))
 
 module.exports = router
