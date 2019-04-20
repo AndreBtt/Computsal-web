@@ -24,6 +24,7 @@ exports.match = function(req, res) {
             return console.dir(error);
         }
         let match = JSON.parse(body)
+        console.log(match)
         res.render('previousMatches/match', {match : match})
     });
 }

@@ -1,48 +1,133 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html>
-	<head>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-        <link rel="stylesheet" href="/css/previousMatches/match.css">
-    </head>
-<body>
-    <div class="container">
-            <table>
-                <tr>
-                    <td class="text-right">
-                        <span class="team-name"><%= match.team1 %></span>
-                        <img src="/img/<%= match.photo1 %>" width="70" height="70">
-                        <h3 class="team-name-mobile"><%= match.team1 %></h3>
-                    </td>
-                    <td class="text-center">
-                            <h4><%= match.score1 %> <span class="small-X">x</span> <%= match.score2 %></h4>
-                    </td>
-                    <td class="text-left">
-                        <h3>
-                            <img src="/img/<%= match.photo2 %>" width="70" height="70"><%= match.team2 %>
-                        </h3>
-                    </td>
-                </tr>
-            </table>
-            <table>
-                <tr>
-                    <th>Jogador</th>
-                    <th>Time</th>
-                    <th>Gols</th>
-                    <th>Amarelos</th>
-                    <th>Vermelhos</th>
-                </tr>
-                <% for (var i = 0; i < match.players.length; i++) { %>
-                    <% let playerDetails = match.players[i] %> 
-                    <tr>
-                        <td><%= playerDetails.player.name %></td>
-                        <td><%= playerDetails.player.team %></td>
-                        <td><%= playerDetails.score %></td>
-                        <td><%= playerDetails.yellowCard %></td>
-                        <td><%= playerDetails.redCard %></td>
-                    </tr>
+  <head>
+    <meta charset="utf-8">
+    <title>Computsal</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/animate.min.css" />
+    <link rel="stylesheet" href="/css/main.css" />
+    <link rel="stylesheet" href="/css/previousMatches/match.css" />
+  </head>
+  <body>
+    <nav id="topNav" class="navbar navbar-default navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand page-scroll" href="/"> Computsal</a>
+            </div>
+            <div class="navbar-collapse collapse" id="bs-navbar">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a class="page-scroll" data-toggle="modal" href="#login">Login</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+    <section id="two">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-xs-12">
+                    <div class="col-lg-4 col-md-4 col-xs-4 text-right team sec-color"><%= match.team1 %></div> 
+                    <div class="col-lg-4 col-md-4 col-xs-4 text-center team"><%= match.score1 %><span class="smallX"> x </span> <%= match.score2 %></div>
+                    <div class="col-lg-4 col-md-4 col-xs-4 team sec-color"><%= match.team2 %></div> 
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+
+            <% for (let i = 0; i < match.players.length; i++) { %>
+                <% player = match.players[i] %>
+                
+                <% if (player.score > 0) { %>
+                    <div class="group">
+                        <div class="ranking">
+                            <div class="col-lg-2 col-md-2 col-xs-2 text-center">
+                                <img src="/img/icons/ball.png" >
+                            </div> 
+                            <div class="col-lg-2 col-md-2 col-xs-2 text-center"><%= player.score %></div> 
+                            <div class="col-lg-4 col-md-4 col-xs-4 text-center"><%= player.player.name %></div> 
+                            <div class="col-lg-4 col-md-4 col-xs-4 text-center"><%= player.player.team %></div> 
+                        </div>
+                    </div>
                 <% } %>
-            </table>
+
+                <% if (player.yellowCard > 0) { %>
+                    <div class="group">
+                        <div class="ranking">
+                            <div class="col-lg-2 col-md-2 col-xs-2 text-center">
+                                <img src="/img/icons/yellow-card.png" >
+                            </div> 
+                            <div class="col-lg-2 col-md-2 col-xs-2 text-center"><%= player.yellowCard %></div> 
+                            <div class="col-lg-4 col-md-4 col-xs-4 text-center"><%= player.player.name %></div> 
+                            <div class="col-lg-4 col-md-4 col-xs-4 text-center"><%= player.player.team %></div> 
+                        </div>
+                    </div>
+                <% } %>
+
+                <% if (player.redCard > 0) { %>
+                    <div class="group">
+                        <div class="ranking">
+                            <div class="col-lg-2 col-md-2 col-xs-2 text-center">
+                                <img src="/img/icons/red-card.png" >
+                            </div> 
+                            <div class="col-lg-2 col-md-2 col-xs-2 text-center"><%= player.redCard %></div> 
+                            <div class="col-lg-4 col-md-4 col-xs-4 text-center"><%= player.player.name %></div> 
+                            <div class="col-lg-4 col-md-4 col-xs-4 text-center"><%= player.player.team %></div> 
+                        </div>
+                    </div>
+                <% } %>
+            
+            <% } %>
+        </div>
+
+    </section>
+
+    <div id="login" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+        <div class="modal-content">
+        	<div class="modal-body">
+                <h2 class="text-center">Entrar / Criar conta</h2>
+                <form class="contact-form row">
+                    <div class="col-md-6">
+                        <label></label>
+                        <input type="text" class="form-control" placeholder="Email">
+                    </div>
+                    <div class="col-md-6">
+                        <label></label>
+                        <input type="password" class="form-control" placeholder="Senha">
+                    </div>
+                    <div class="col-md-12">
+                        <label></label>
+                        <button type="button" class="btn btn-primary btn-block btn-lg">Falta o face aqui </button>
+                    </div>
+                    <div class="col-md-6">
+                        <label></label>
+                        <button type="button" class="btn btn-primary btn-block btn-lg">Criar </button>
+                    </div>
+                    <div class="col-md-6">
+                        <label></label>
+                        <button type="button" class="btn btn-primary btn-block btn-lg">Entrar </button>
+                    </div>
+                </form>
+        	</div>
+        </div>
+        </div>
     </div>
-</body>
-</html>
+    <!--scripts loaded here -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/jquery.easing.min.js"></script>
+    <script src="/js/home/wow.js"></script>
+    <script src="/js/home/index.js"></script>
+    <script src="/js/groups/index.js"></script>
+  </body>
+</html>  
