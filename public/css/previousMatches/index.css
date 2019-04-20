@@ -1,53 +1,64 @@
-body {
-    margin-top: 50px;
+h4 {
+    margin-bottom: 0;
 }
-table {
-    border-collapse: collapse;
+
+h6 {
+    margin-top: 0;
+}
+
+.ranking {
+    border-bottom: 1px solid #DDD;
+    display: flex;
+    align-items: center;
+}
+
+.jogador {
+    display: flex;
+    align-items: center;
     width: 100%;
-    table-layout: fixed;
-}
-  
-th {
-    padding: 8px;
-    text-align: left;
-    border-bottom: solid #272621;
-}
-
-td { 
-    width: 33%; 
-    border-bottom: 1px solid #272621;
-    padding-top: 15px;
-}
-
-.small-X {
-    font-size: 18px;
+    height: 78px;
 }
 
 .round {
-    margin-top: 50px;
-    background-color: #272621;
-    color: white;
-    font-size: 20px;
+    margin-top: 40px;
+    margin-bottom: 40px;
 }
 
-.team-name-mobile { 
-    display: none; 
-}
-
-.team-name { 
+.round-size {
     font-size: 25px;
 }
 
-@media only screen and (max-width: 600px) {
-    .team-name { display: none; }
-    .team-name-mobile { 
-        display: inline-block;
-        text-align: center;
+.team {
+    font-size: 15px;
+    color: #43b699;
+}
+
+.team-score {
+    font-size: 30px;
+}
+
+.smallX {
+    font-size: 15px;
+}
+
+@media(min-width:768px) {
+    .team-score {
+        font-size: 35px;
     }
-    .text-right {
-        padding-right: 10%;
+
+    .smallX {
+        font-size: 15px;
     }
-    .text-left {
-        padding-left: 10%;
+
+    .team {
+        font-size: 30px;
+    }
+
+    .details {
+        font-size: 15px;
+    }
+
+    .round-size {
+        font-size: 30px;
     }
 }
