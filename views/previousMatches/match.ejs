@@ -42,14 +42,17 @@
             </div>
         </div>
 
+        <% let seconds = 0 %>
         <div class="container">
 
             <% for (let i = 0; i < match.players.length; i++) { %>
                 <% player = match.players[i] %>
+                <% if(seconds < 5) seconds++ %>
+                <% let delay = "." + seconds + "s" %>
                 
                 <% if (player.score > 0) { %>
                     <div class="group">
-                        <div class="ranking">
+                        <div class="ranking wow fadeIn" data-wow-delay="<%=delay%>">
                             <div class="col-lg-2 col-md-2 col-xs-2 text-center">
                                 <img src="/img/icons/ball.png" >
                             </div> 
@@ -62,7 +65,7 @@
 
                 <% if (player.yellowCard > 0) { %>
                     <div class="group">
-                        <div class="ranking">
+                        <div class="ranking wow fadeIn" data-wow-delay="<%=delay%>">
                             <div class="col-lg-2 col-md-2 col-xs-2 text-center">
                                 <img src="/img/icons/yellow-card.png" >
                             </div> 
@@ -75,7 +78,7 @@
 
                 <% if (player.redCard > 0) { %>
                     <div class="group">
-                        <div class="ranking">
+                        <div class="ranking wow fadeIn" data-wow-delay="<%=delay%>">
                             <div class="col-lg-2 col-md-2 col-xs-2 text-center">
                                 <img src="/img/icons/red-card.png" >
                             </div> 
