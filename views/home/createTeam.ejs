@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Computsal</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/animate.min.css" />
+    <link rel="stylesheet" href="/css/main.css" />
+    <link rel="stylesheet" href="/css/home/createTeam.css" />
+  </head>
+  <body>
+    <nav id="topNav" class="navbar navbar-default navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand page-scroll" href="/"> Computsal</a>
+            </div>
+            <div class="navbar-collapse collapse" id="bs-navbar">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a class="page-scroll" data-toggle="modal" href="#login">Login</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+    <section id="two">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2 class="margin-top-0 text-primary">Criar meu time</h2>
+                    <hr class="primary">
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <form method="POST" action="/criarTime" class="contact-form row col-md-8 col-md-offset-2">
+                <div class="group">
+                    <input id="teamName" class="text-center" name="name" type="text" placeholder="Nome do time" required/>
+                    <div class="bar"></div>
+                </div>
+
+                <div class="group">
+                    <input class="text-center" type="text" placeholder="Foto" />
+                    <div class="bar"></div>
+                </div>
+                
+                <div class="group">
+                    <input id="captain" class="text-center" name="captain" type="text" placeholder="Capitão" required />
+                    <div class="bar"></div>
+                </div>
+
+                <div id="players">
+                </div>
+                
+                <div id="newPlayer" class="col-md-12 text-center">
+                    <button type="button" onclick="createPlayer()" class="btn btn-primary btn-lg"> Adicionar jogador </button>
+                </div>
+
+                <input type="hidden" name="players" id="playersInput">
+
+                <div id="send" class="col-md-12 text-center">
+                    <button class="btn btn-primary btn-block btn-lg">Criar</button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+
+    <div id="login" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+        <div class="modal-content">
+        	<div class="modal-body">
+                <h2 class="text-center">Entrar / Criar conta</h2>
+                <form class="contact-form row">
+                    <div class="col-md-6">
+                        <label></label>
+                        <input type="text" class="form-control" placeholder="Email">
+                    </div>
+                    <div class="col-md-6">
+                        <label></label>
+                        <input type="password" class="form-control" placeholder="Senha">
+                    </div>
+                    <div class="col-md-12">
+                        <label></label>
+                        <button type="button" class="btn btn-primary btn-block btn-lg">Falta o face aqui </button>
+                    </div>
+                    <div class="col-md-6">
+                        <label></label>
+                        <button type="button" class="btn btn-primary btn-block btn-lg">Criar </button>
+                    </div>
+                    <div class="col-md-6">
+                        <label></label>
+                        <button type="button" class="btn btn-primary btn-block btn-lg">Entrar </button>
+                    </div>
+                </form>
+        	</div>
+        </div>
+        </div>
+    </div>
+    <!--scripts loaded here -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/jquery.easing.min.js"></script>
+    <script src="/js/home/wow.js"></script>
+    <script src="/js/home/index.js"></script>
+    <script src="/js/home/createTeam.js"></script>
+  </body>
+</html>  

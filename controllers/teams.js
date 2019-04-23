@@ -27,41 +27,6 @@ exports.team = function(req, res) {
     });
 }
 
-// create a team
-exports.create = function(req, res) {
-
-    // let teamCreate = {
-    //     "name" : "gol++",
-    //     "photo": "www",
-    //     "players": 
-    //         [
-    //             {
-    //                 "name" : "andre"		
-    //             }
-    //         ],
-    //     "captain_email" : "email"
-    // }
-
-    // teamCreate.players.push({
-    //     "name" : "novo jogador"
-    // })
-
-    // console.log(teamCreate)
-
-    // Request({
-    //     url: API + "/teams",
-    //     method: "POST",
-    //     json: true,   
-    //     body: teamCreate
-    // }, function (error, response, body){
-    //     if(error) {
-    //         console.log(error)
-    //     }
-    //     console.log(response.statusCode);
-    // });
-    res.render('teams/create')
-}
-
 exports.update = function(req, res) {
     let teamName = req.params.teamName
 

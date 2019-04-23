@@ -87,73 +87,81 @@
             </div>
             
             <div id="previousMatches" class="container item">
-                <% let round = 0 %>
-                <% let map = new Map() %>
-                <% map.set(1, "FINAL") %>
-                <% map.set(2, "SEMI FINAL") %>
-                <% map.set(4, "QUARTAS DE FINAL") %>
-                <% map.set(8, "OITAVAS DE FINAL") %>
-                <% for (var i = 0; i < team.previous_matches.length; i++) { %>
-                    <% match = team.previous_matches[i] %>
-
-                    <!-- Display correct round match -->
-                    <% if (match.type !== 0) { %>
-                        <!-- elimination phase -->
-                        <div class="row round">
-                            <div class="col-lg-12 text-center">
-                                <h2 class="round-size"><%= map.get(match.type) %></h2>
-                            </div>
-                        </div>
-                    <% } else if (round !== match.phase) { %>
-                        <!-- group phase -->
-                        <div class="row round">
-                            <div class="col-lg-12 text-center">
-                                <h2 class="round-size"><%= match.phase %>&ordf; RODADA</h2>
-                            </div>
-                        </div>
-                        <% round = match.phase %>
-                    <% } %>
-
-                    <div class="ranking">
-                        <div class="jogador">
-                            <div class="col-lg-5 col-md-5 col-xs-6">
-                                <span class="team"><%= match.team1 %></span>
-                            </div>
-                            <div class="col-lg-2 col-md-2 col-xs-6 text-center">
-                                <h4 class="team-score"><%= match.score1 %> <span class="smallX">x</span> <%= match.score2 %></h4>
-                                <a href="/jogosPassados/<%= match.id %>"><h6 class="details">Detalhes do jogo</h6></a>
-                            </div>
-                            <div class="col-lg-5 col-md-5 col-xs-6 text-right">
-                                    <span class="team"><%= match.team2 %></span>
-                                </div> 
-                        </div>
+                <% if(team.previous_matches.length === 0) { %>
+                    <div class="col-lg-12 col-md-12 col-xs-12">
+                        <span class="tempo">Sem partidas jogadas</span>
                     </div>
+                <% } else { %>
 
+                    <% let round = 0 %>
+                    <% let map = new Map() %>
+                    <% map.set(1, "FINAL") %>
+                    <% map.set(2, "SEMI FINAL") %>
+                    <% map.set(4, "QUARTAS DE FINAL") %>
+                    <% map.set(8, "OITAVAS DE FINAL") %>
+                    <% for (var i = 0; i < team.previous_matches.length; i++) { %>
+                        <% match = team.previous_matches[i] %>
+
+                        <!-- Display correct round match -->
+                        <% if (match.type !== 0) { %>
+                            <!-- elimination phase -->
+                            <div class="row round">
+                                <div class="col-lg-12 text-center">
+                                    <h2 class="round-size"><%= map.get(match.type) %></h2>
+                                </div>
+                            </div>
+                        <% } else if (round !== match.phase) { %>
+                            <!-- group phase -->
+                            <div class="row round">
+                                <div class="col-lg-12 text-center">
+                                    <h2 class="round-size"><%= match.phase %>&ordf; RODADA</h2>
+                                </div>
+                            </div>
+                            <% round = match.phase %>
+                        <% } %>
+
+                        <div class="ranking">
+                            <div class="jogador">
+                                <div class="col-lg-5 col-md-5 col-xs-6">
+                                    <span class="team"><%= match.team1 %></span>
+                                </div>
+                                <div class="col-lg-2 col-md-2 col-xs-6 text-center">
+                                    <h4 class="team-score"><%= match.score1 %> <span class="smallX">x</span> <%= match.score2 %></h4>
+                                    <a href="/jogosPassados/<%= match.id %>"><h6 class="details">Detalhes do jogo</h6></a>
+                                </div>
+                                <div class="col-lg-5 col-md-5 col-xs-6 text-right">
+                                        <span class="team"><%= match.team2 %></span>
+                                    </div> 
+                            </div>
+                        </div>
+
+                    <% } %>
                 <% } %>
 
             </div>
 
             <div id="nextMatch" class="container item">
-                <div class="ranking">
-                    <div class="jogador">
-                        <!-- no next match available -->
-                        <% if(team.next_match.name.length === 0) { %>
-                        <div class="col-lg-12 col-md-12 col-xs-12">
-                            <span class="tempo">Partida ainda não definida</span>
-                        </div>
-                        <% } else { %>
-                            <div class="col-lg-5 col-md-5 col-xs-6">
-                                <span class="time"><%= team.name %></span>
-                            </div>
-                            <div class="col-lg-2 col-md-2 col-xs-6 text-center">
-                                <span class="tempo"><%= team.next_match.time.substring(0, team.next_match.time.length - 3) %></span>
-                            </div>
-                            <div class="col-lg-5 col-md-5 col-xs-6 text-right">
-                                <span class="time"><%= team.next_match.name %></span>
-                            </div> 
-                        <% } %>
+                <!-- no next match available -->
+                <% if(team.next_match.name.length === 0) { %>
+                    <div class="col-lg-12 col-md-12 col-xs-12">
+                        <span class="tempo">Partida ainda não definida</span>
                     </div>
-                </div>
+                <% } else { %>
+                    <div class="ranking">
+                        <div class="jogador">
+                            
+                                <div class="col-lg-5 col-md-5 col-xs-6">
+                                    <span class="time"><%= team.name %></span>
+                                </div>
+                                <div class="col-lg-2 col-md-2 col-xs-6 text-center">
+                                    <span class="tempo"><%= team.next_match.time.substring(0, team.next_match.time.length - 3) %></span>
+                                </div>
+                                <div class="col-lg-5 col-md-5 col-xs-6 text-right">
+                                    <span class="time"><%= team.next_match.name %></span>
+                                </div> 
+                        </div>
+                    </div>
+                <% } %>
             </div>
 
             <div id="information" class="container item">

@@ -1,13 +1,14 @@
 var express = require('express')
 var router = express.Router()
 
-var controller = require('../controllers/index')
+var controller = require('../controllers/home')
+var user = require('../controllers/user')
 
-router.get('/', controller.index)
+router.get('/', isLoggedIn, controller.home)
 
-router.get('/teste', function(req,res) {
-    res.render('teste', {})
-})
+// user routes
+router.use('/criarTime', isLoggedIn, user.createTeam)
+// router.get('/agendarHorario', isLoggedIn, controller.timeSchedule)
 
 router.use('/times', require('./teams'))
 router.use('/jogosPassados', require('./previousMatches'))
@@ -15,4 +16,16 @@ router.use('/proximosJogos', require('./nextMatches'))
 router.use('/artilharia', require('./score'))
 router.use('/grupos', require('./groups'))
 
+function isLoggedIn(req, res, next) {
+    // if (req.isAuthenticated()) {
+    //    req.isLogged = true
+    //    return next();
+    // }
+    req.logged = true
+    req.adm = true
+    return next()
+}
+
 module.exports = router
+
+
