@@ -7,43 +7,59 @@ var user = require('../controllers/user')
 router.get('/', isLoggedIn, controller.home)
 
 // user routes
-router.use('/criarTime', isLoggedIn, user.createTeam)
-router.use('/agendarHorario', isLoggedIn, user.schedule)
+router.use('/criarTime', isLoggedIn, userAccess, user.createTeam)
+router.use('/agendarHorario', isLoggedIn, userAccess, user.schedule)
 
-// adm routes
-router.use('/admin', isLoggedIn, isAdmin, require('./admin'))
+// admin routes
+router.use('/admin', isLoggedIn, AdminAccess, require('./admin'))
 
 // general routes
-router.use('/times', require('./teams'))
-router.use('/jogosPassados', require('./previousMatches'))
-router.use('/proximosJogos', require('./nextMatches'))
-router.use('/artilharia', require('./score'))
-router.use('/grupos', require('./groups'))
+router.use('/times', isLoggedIn, require('./teams'))
+router.use('/jogosPassados', isLoggedIn, require('./previousMatches'))
+router.use('/proximosJogos', isLoggedIn, require('./nextMatches'))
+router.use('/artilharia', isLoggedIn, require('./score'))
+router.use('/grupos', isLoggedIn, require('./groups'))
 
 function isLoggedIn(req, res, next) {
-    // if (usario nao esta logado) {
-    //     res.render('home/index', {
-    //         logged : false,
-    //         adm : false
-    //     })
-    //     return
-    // }
+    if (/*usario nao esta logado*/ false) {
+        req.logged = false
+        req.email = ""
+        req.admin = false
+        return next()
+    }
+
+    // user is logged in
     req.logged = true
     req.email = "email14"
-    req.adm = true
+    req.admin = false
+    if (/* verificar email admin */ true){
+        req.admin = true
+    }
     return next()
 }
 
-function isAdmin(req, res, next) {
-    if (!req.adm) {
-        // user is not a adm
-        res.render('home/index', {
-            logged : req.logged,
-            adm : req.adm
-        })
-        return
+function userAccess(req, res, next) {
+    if(req.logged) {
+        return next()
     }
-    return next()
+
+    // user is not logged in
+    res.render('home/index', {
+        logged : req.logged,
+        admin : req.admin
+    })
+}
+
+function AdminAccess(req, res, next) {
+    if (req.admin) {
+        return next()
+    }
+
+    // user is not an admin
+    res.render('home/index', {
+        logged : req.logged,
+        admin : req.admin
+    })
 }
 
 module.exports = router

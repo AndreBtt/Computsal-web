@@ -9,6 +9,9 @@ exports.index = function(req, res) {
             return console.dir(error);
         }
         let scores = JSON.parse(body)
-        res.render('score/index', {scores : scores})
+        res.render('score/index', {
+            scores : scores,
+            logged : req.logged,
+            admin : req.admin})
     });
 }

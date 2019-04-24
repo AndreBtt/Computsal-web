@@ -23,12 +23,19 @@
             <div class="navbar-collapse collapse" id="bs-navbar">
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a class="page-scroll" data-toggle="modal" href="#login">Login</a>
+                        <a class="page-scroll" data-toggle="modal" href="#login">
+                            <% if (logged) { %> 
+                                Minhas configuracões 
+                            <% } else { %>
+                                Login
+                            <% } %>
+                        </a>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
+    
     <section id="two" class="bg-dark">
         <div class="container">
             <div class="row">

@@ -49,7 +49,7 @@ exports.createTeam = function(req, res) {
     } else {
         // Get, just rend page
         res.render('home/createTeam',{
-            adm : req.adm,
+            admin : req.admin,
             email : req.email
         })
     }
@@ -99,7 +99,7 @@ function scheduleTeam(teamName, req, res) {
             let schedule = JSON.parse(body)
             res.render("home/schedule", {
                 schedule: schedule,
-                adm : req.adm,
+                admin : req.admin,
                 teamName : teamName
             })
         });

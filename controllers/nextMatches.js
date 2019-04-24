@@ -10,6 +10,9 @@ exports.index = function(req, res) {
         }
         let matches = JSON.parse(body)
 
-        res.render('nextMatches/index', {matches : matches})
+        res.render('nextMatches/index', {
+            matches : matches,
+            logged : req.logged,
+            admin : req.admin})
     });
 }

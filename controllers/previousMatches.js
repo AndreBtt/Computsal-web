@@ -11,7 +11,10 @@ exports.index = function(req, res) {
         }
         let matches = JSON.parse(body)
 
-        res.render('previousMatches/index', {matches : matches})
+        res.render('previousMatches/index', {
+            matches : matches,
+            logged : req.logged,
+            admin : req.admin})
     });
 }
 
@@ -24,6 +27,9 @@ exports.match = function(req, res) {
             return console.dir(error);
         }
         let match = JSON.parse(body)
-        res.render('previousMatches/match', {match : match})
+        res.render('previousMatches/match', {
+            match : match,
+            logged : req.logged,
+            admin : req.admin})
     });
 }

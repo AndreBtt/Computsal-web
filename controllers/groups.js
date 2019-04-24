@@ -13,7 +13,9 @@ exports.index = function(req, res) {
 
         res.render('groups/index', {
             groupSize : groupSize,
-            groups : groups
+            groups : groups,
+            logged : req.logged,
+            admin : req.admin
         });
     });
 }
