@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="/css/bootstrap.min.css" />
     <link rel="stylesheet" href="/css/animate.min.css" />
     <link rel="stylesheet" href="/css/main.css" />
-    <link rel="stylesheet" href="/css/home/createTeam.css" />
+    <link rel="stylesheet" href="/css/home/schedule.css" />
   </head>
   <body>
     <nav id="topNav" class="navbar navbar-default navbar-fixed-top">
@@ -35,41 +35,38 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <h2 class="margin-top-0 text-primary">Criar meu time</h2>
+                    <h2 class="margin-top-0 text-primary">Agendar Horario</h2>
                     <hr class="primary">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h4 class="margin-top-5">Marque os horários que deseja jogar</h4>
                 </div>
             </div>
         </div>
 
         <div class="container">
-            <form method="POST" action="/criarTime" class="contact-form row col-md-8 col-md-offset-2">
-                <div class="group">
-                    <input id="teamName" class="text-center" name="name" type="text" placeholder="Nome do time" required/>
-                    <div class="bar"></div>
-                </div>
-
-                <div class="group">
-                    <input class="text-center" type="text" placeholder="Foto" />
-                    <div class="bar"></div>
-                </div>
+            <form name="schedule" method="POST" action="/agendarHorario" class="contact-form row col-md-8 col-md-offset-2">
+                <% for(let i = 0; i < schedule.length; i++) { %>
+                    <!-- <div class="group text-center">
+                        <input id="<%= schedule[i].time_id %>" type="checkbox" <% if(schedule[i].availability) { %> checked <% } %>/> <%= schedule[i].time.substring(0, schedule[i].time.length - 3) %>
+                    </div> -->
+                    <div class="group page__toggle text-center">
+                            <label class="toggle">
+                                <input id="<%= schedule[i].time_id %>" class="toggle__input" type="checkbox" <% if(schedule[i].availability) { %> checked <% } %>>
+                                <span class="toggle__label">
+                                <span class="toggle__text"><%= schedule[i].time.substring(0, schedule[i].time.length - 3) %></span>
+                                </span>
+                            </label>
+                        </div>
+                <% } %>
                 
-                <div class="group">
-                    <input id="captain" class="text-center" name="captain" type="text" placeholder="Capitão" required />
-                    <div class="bar"></div>
-                </div>
-
-                <div id="players">
-                </div>
-                
-                <div id="newPlayer" class="col-md-12 text-center">
-                    <button type="button" onclick="createPlayer()" class="btn btn-primary btn-lg"> Adicionar jogador </button>
-                </div>
-
-                <input type="hidden" name="players" id="playersInput">
-                <input type="hidden" name="email" value="<%= email %>">
+                <input type="hidden" name="scheduleDiff" id="scheduleDiff">
+                <input type="hidden" name="teamName" value="<%= teamName %>">
 
                 <div id="send" class="col-md-12 text-center">
-                    <button class="btn btn-primary btn-block btn-lg">Criar</button>
+                    <button class="btn btn-primary btn-block btn-lg">Atualizar horários</button>
                 </div>
             </form>
         </div>
@@ -95,6 +92,7 @@
     <script src="/js/jquery.easing.min.js"></script>
     <script src="/js/home/wow.js"></script>
     <script src="/js/home/index.js"></script>
-    <script src="/js/home/createTeam.js"></script>
+    <script src="/js/home/schedule.js"></script>
+    
   </body>
 </html>  

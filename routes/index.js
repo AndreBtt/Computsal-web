@@ -8,7 +8,7 @@ router.get('/', isLoggedIn, controller.home)
 
 // user routes
 router.use('/criarTime', isLoggedIn, user.createTeam)
-// router.get('/agendarHorario', isLoggedIn, controller.timeSchedule)
+router.use('/agendarHorario', isLoggedIn, user.schedule)
 
 router.use('/times', require('./teams'))
 router.use('/jogosPassados', require('./previousMatches'))
@@ -23,6 +23,7 @@ function isLoggedIn(req, res, next) {
     // }
     req.logged = true
     req.adm = true
+    req.email = "email14"
     return next()
 }
 

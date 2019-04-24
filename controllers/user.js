@@ -4,19 +4,12 @@ var Request = require("request");
 let API = "http://localhost:8080"
 
 exports.createTeam = function(req, res) {
-    // if user is not logged
-    if(!req.logged) {
-        res.render('home/index', {
-            logged : false,
-            adm : false
-        })
-    }
-
-    // receive data to create team    
     if(req.method === "POST") {
-        var name = req.body.name;
-        var captain = req.body.captain;
-        var players = req.body.players.split(",")
+        // receive data to create team    
+        let name = req.body.name;
+        let email = req.body.email;
+        let captain = req.body.captain;
+        let players = req.body.players.split(",")
         
         // no players
         if(players[0] === "") {
@@ -32,7 +25,7 @@ exports.createTeam = function(req, res) {
                         "name" : captain		
                     }
                 ],
-            "captain_email" : "email"
+            "captain_email" : email
         }
 
         for(let i = 0; i < players.length; i++) {
@@ -55,11 +48,60 @@ exports.createTeam = function(req, res) {
         });
     } else {
         // Get, just rend page
-        res.render('home/createTeam')
+        res.render('home/createTeam',{
+            adm : req.adm,
+            email : req.email
+        })
     }
-
 }
 
+exports.schedule = function(req, res) {
+    // get user email
+    let email = req.email
 
+    Request.get(API + "/captainTeam/" + email, (error, response, body) => {
+        if(error) {
+            return console.dir(error);
+        }
+        let teamObj = JSON.parse(body)
+        let teamName = teamObj.team
+        scheduleTeam(teamName, req, res)
+    });
+}
 
-    
+function scheduleTeam(teamName, req, res) {
+    if(req.method === "POST") {
+        // receive data to update schedule    
+        let schedule = JSON.parse("[" + req.body.scheduleDiff + "]")
+        let teamName = req.body.teamName
+        
+        if(schedule.length === 0) {
+            // schedule is empty nothing to do
+            require('./home').home(req, res)
+        } else {
+            Request({
+                url: API + "/schedule/" + teamName,
+                method: "PUT",
+                json: true,   
+                body: schedule
+            }, function (error, response, body){
+                if(error) {
+                    console.log(error)
+                }
+                require('./home').home(req, res)
+            });
+        }
+    } else {
+        Request.get(API + "/schedule/" + teamName, (error, response, body) => {
+            if(error) {
+                return console.dir(error);
+            }
+            let schedule = JSON.parse(body)
+            res.render("home/schedule", {
+                schedule: schedule,
+                adm : req.adm,
+                teamName : teamName
+            })
+        });
+    }
+}
