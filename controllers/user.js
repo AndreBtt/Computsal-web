@@ -12,48 +12,41 @@ exports.createTeam = function(req, res) {
         let captain = req.body.captain;
         let players = req.body.players
 
-        console.log(name)
-        console.log(email)
-        console.log(captain)
-        console.log(players)
-        
-        // descobrir como retornar success
+        // no players
+        if(players === undefined) {
+            players = []
+        }
 
-        // // no players
-        // if(players[0] === "") {
-        //     players = []
-        // }
+        let teamCreate = {
+            "name" : name,
+            "photo": "www",
+            "players": 
+                [
+                    {
+                        "name" : captain		
+                    }
+                ],
+            "captain_email" : email
+        }
 
-        // let teamCreate = {
-        //     "name" : name,
-        //     "photo": "www",
-        //     "players": 
-        //         [
-        //             {
-        //                 "name" : captain		
-        //             }
-        //         ],
-        //     "captain_email" : email
-        // }
+        for(let i = 0; i < players.length; i++) {
+            let p = {}
+            p.name = players[i]
+            teamCreate.players.push(p)
+        }
 
-        // for(let i = 0; i < players.length; i++) {
-        //     let p = {}
-        //     p.name = players[i]
-        //     teamCreate.players.push(p)
-        // }
-
-        // Request({
-        //     url: API + "/teams",
-        //     method: "POST",
-        //     json: true,   
-        //     body: teamCreate
-        // }, function (error, response, body){
-        //     if(error) {
-        //         console.log(error)
-        //     }
-        //     console.log(response.statusCode);
-        //     require('./home').home(req, res)
-        // });
+        Request({
+            url: API + "/teams",
+            method: "POST",
+            json: true,   
+            body: teamCreate
+        }, function (error, response, body){
+            if(error) {
+                res.end('{"status" : "fail"}');
+            } else {
+                res.end('{"status" : "success"}');
+            }
+        });
     } else {
         // Get, just rend page
         res.render('home/createTeam',{
@@ -78,27 +71,32 @@ exports.schedule = function(req, res) {
 }
 
 function scheduleTeam(teamName, req, res) {
-    if(req.method === "POST") {
+    if(req.method === "PUT") {
+
         // receive data to update schedule    
-        let schedule = JSON.parse("[" + req.body.scheduleDiff + "]")
-        let teamName = req.body.teamName
-        
-        if(schedule.length === 0) {
+        let schedule = req.body.times
+
+        if(schedule === undefined) {
             // schedule is empty nothing to do
-            require('./home').home(req, res)
+            res.end('{"status" : "success"}');
         } else {
+
+            let scheduleObj = JSON.parse('['+schedule.join(',')+']');
+
             Request({
                 url: API + "/schedule/" + teamName,
                 method: "PUT",
-                json: true,   
-                body: schedule
+                json: true,
+                body: scheduleObj
             }, function (error, response, body){
                 if(error) {
-                    console.log(error)
+                    res.end('{"status" : "fail"}');
+                } else {
+                    res.end('{"status" : "success"}');
                 }
-                require('./home').home(req, res)
             });
         }
+
     } else {
         Request.get(API + "/schedule/" + teamName, (error, response, body) => {
             if(error) {
@@ -107,8 +105,7 @@ function scheduleTeam(teamName, req, res) {
             let schedule = JSON.parse(body)
             res.render("home/schedule", {
                 schedule: schedule,
-                admin : req.admin,
-                teamName : teamName
+                admin : req.admin
             })
         });
     }

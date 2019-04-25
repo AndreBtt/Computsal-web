@@ -33,6 +33,12 @@
     position: relative;
 }
 
+.require-text {
+  font-size: 10px;
+  color: #F31431;
+  display: none;
+}
+
 input {
     display: block;
     width: 100%;
@@ -80,6 +86,14 @@ input:focus ~ .bar:before {
   outline: none;
 }
 
+#resultModal button {
+  outline: none;
+}
+
+button {
+  outline: none;
+}
+
   /* Place Holder CSS for Focus */
 :hover::-webkit-input-placeholder {
     opacity: 0.75;
@@ -123,3 +137,10 @@ input:focus ~ .bar:before {
     -ms-transition: opacity 0.35s ease-in-out;
     transition: opacity 0.35s ease-in-out;
   }
+
+
+@media(min-width:768px) {
+  .require-text {
+    font-size: 15px;
+  }
+}

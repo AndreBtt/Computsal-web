@@ -46,12 +46,9 @@
             </div>
         </div>
 
-        <div class="container">
-            <form name="schedule" method="POST" action="/agendarHorario" class="contact-form row col-md-8 col-md-offset-2">
+        <div id="form" class="container">
+            <div class="contact-form row col-md-8 col-md-offset-2">
                 <% for(let i = 0; i < schedule.length; i++) { %>
-                    <!-- <div class="group text-center">
-                        <input id="<%= schedule[i].time_id %>" type="checkbox" <% if(schedule[i].availability) { %> checked <% } %>/> <%= schedule[i].time.substring(0, schedule[i].time.length - 3) %>
-                    </div> -->
                     <div class="group page__toggle text-center">
                             <label class="toggle">
                                 <input id="<%= schedule[i].time_id %>" class="toggle__input" type="checkbox" <% if(schedule[i].availability) { %> checked <% } %>>
@@ -62,13 +59,11 @@
                         </div>
                 <% } %>
                 
-                <input type="hidden" name="scheduleDiff" id="scheduleDiff">
-                <input type="hidden" name="teamName" value="<%= teamName %>">
-
-                <div id="send" class="col-md-12 text-center">
-                    <button class="btn btn-primary btn-block btn-lg">Atualizar horários</button>
+                <div class="col-md-12 text-center">
+                    <button id="send" class="btn btn-primary btn-block btn-lg" >Atualizar horários</button>
+                    <a id="sendClick" class="page-scroll" data-toggle="modal" href="#resultModal" style="display:none;"></a>
                 </div>
-            </form>
+            </div>
         </div>
     </section>
 
@@ -86,6 +81,20 @@
         </div>
         </div>
     </div>
+
+    <div id="resultModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div id="modaltext"></div>
+                <div class="text-center">
+                    <a href="/"><button class="btn btn-primary btn-lg" style="width:50%; margin-top: 15px;" >Voltar</button></a>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+
     <!--scripts loaded here -->
     <script src="/js/jquery.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
