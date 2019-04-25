@@ -39,6 +39,7 @@ function isLoggedIn(req, res, next) {
 }
 
 function userAccess(req, res, next) {
+    console.log("verify user access")
     if(req.logged) {
         return next()
     }
@@ -51,6 +52,7 @@ function userAccess(req, res, next) {
 }
 
 function AdminAccess(req, res, next) {
+    console.log("verify admin access")
     if (req.admin) {
         return next()
     }

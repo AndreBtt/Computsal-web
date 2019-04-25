@@ -4,48 +4,56 @@ var Request = require("request");
 let API = "http://localhost:8080"
 
 exports.createTeam = function(req, res) {
+
     if(req.method === "POST") {
         // receive data to create team    
         let name = req.body.name;
         let email = req.body.email;
         let captain = req.body.captain;
-        let players = req.body.players.split(",")
+        let players = req.body.players
+
+        console.log(name)
+        console.log(email)
+        console.log(captain)
+        console.log(players)
         
-        // no players
-        if(players[0] === "") {
-            players = []
-        }
+        // descobrir como retornar success
 
-        let teamCreate = {
-            "name" : name,
-            "photo": "www",
-            "players": 
-                [
-                    {
-                        "name" : captain		
-                    }
-                ],
-            "captain_email" : email
-        }
+        // // no players
+        // if(players[0] === "") {
+        //     players = []
+        // }
 
-        for(let i = 0; i < players.length; i++) {
-            let p = {}
-            p.name = players[i]
-            teamCreate.players.push(p)
-        }
+        // let teamCreate = {
+        //     "name" : name,
+        //     "photo": "www",
+        //     "players": 
+        //         [
+        //             {
+        //                 "name" : captain		
+        //             }
+        //         ],
+        //     "captain_email" : email
+        // }
 
-        Request({
-            url: API + "/teams",
-            method: "POST",
-            json: true,   
-            body: teamCreate
-        }, function (error, response, body){
-            if(error) {
-                console.log(error)
-            }
-            console.log(response.statusCode);
-            require('./home').home(req, res)
-        });
+        // for(let i = 0; i < players.length; i++) {
+        //     let p = {}
+        //     p.name = players[i]
+        //     teamCreate.players.push(p)
+        // }
+
+        // Request({
+        //     url: API + "/teams",
+        //     method: "POST",
+        //     json: true,   
+        //     body: teamCreate
+        // }, function (error, response, body){
+        //     if(error) {
+        //         console.log(error)
+        //     }
+        //     console.log(response.statusCode);
+        //     require('./home').home(req, res)
+        // });
     } else {
         // Get, just rend page
         res.render('home/createTeam',{

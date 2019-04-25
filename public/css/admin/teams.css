@@ -1,0 +1,47 @@
+.ranking {
+    border-bottom: 1px solid #DDD;
+    display: flex;
+    align-items: center;
+}
+
+.jogador {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 78px;
+}
+
+.time {
+    font-size: 15px;
+    color: #43b699;
+}
+
+.tempo {
+    font-size: 20px;
+    /* color: #43b699; */
+}
+
+.deleteButton {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+#send {
+    margin-top: 40px;
+}
+
+@media(min-width:768px) {
+    .time {
+        font-size: 30px;
+    }
+
+    .tempo {
+        font-size: 40px;
+    }
+
+    .deleteButton {
+        width: 30px;
+        height: 30px;
+    }
+}
