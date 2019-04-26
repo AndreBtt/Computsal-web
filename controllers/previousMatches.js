@@ -14,6 +14,7 @@ exports.index = function(req, res) {
         res.render('previousMatches/index', {
             matches : matches,
             logged : req.logged,
+            captain : req.captain,
             admin : req.admin})
     });
 }
@@ -30,6 +31,7 @@ exports.match = function(req, res) {
         res.render('previousMatches/match', {
             match : match,
             logged : req.logged,
+            captain : req.captain,
             admin : req.admin})
     });
 }

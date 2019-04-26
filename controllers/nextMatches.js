@@ -13,6 +13,7 @@ exports.index = function(req, res) {
         res.render('nextMatches/index', {
             matches : matches,
             logged : req.logged,
+            captain : req.captain,
             admin : req.admin})
     });
 }

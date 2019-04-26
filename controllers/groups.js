@@ -15,8 +15,8 @@ exports.index = function(req, res) {
             groupSize : groupSize,
             groups : groups,
             logged : req.logged,
+            captain : req.captain,
             admin : req.admin
         });
     });
 }
-

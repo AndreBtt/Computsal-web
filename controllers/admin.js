@@ -4,7 +4,9 @@ var Request = require("request");
 let API = "http://localhost:8080"
 
 exports.index = function(req, res) {
-    res.render('admin/index')
+    res.render('admin/index', {
+        captain : req.captain
+    })
 }
 
 exports.teams = function(req, res) {
@@ -18,7 +20,8 @@ exports.teams = function(req, res) {
             }
             let teams = JSON.parse(body)
             res.render('admin/teams', {
-                teams : teams
+                teams : teams,
+                captain : req.captain
             })
         });
     }

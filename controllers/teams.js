@@ -13,6 +13,7 @@ exports.index = function(req, res) {
         res.render('teams/index', {
             teams : teams,
             logged : req.logged,
+            captain : req.captain,
             admin : req.admin})
     });
 }
@@ -29,6 +30,7 @@ exports.team = function(req, res) {
         res.render('teams/team', {
             team : team,
             logged : req.logged,
+            captain : req.captain,
             admin : req.admin})
     });
 }

@@ -12,6 +12,7 @@ exports.index = function(req, res) {
         res.render('score/index', {
             scores : scores,
             logged : req.logged,
+            captain : req.captain,
             admin : req.admin})
     });
 }

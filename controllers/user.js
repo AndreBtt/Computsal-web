@@ -49,11 +49,125 @@ exports.createTeam = function(req, res) {
         });
     } else {
         // Get, just rend page
-        res.render('home/createTeam',{
+        res.render('user/createTeam',{
             admin : req.admin,
+            captain : req.captain,
             email : req.email
         })
     }
+}
+
+exports.updateTeam = function(req, res) {
+    if(req.method === "PUT") {
+        let id = req.body.id
+        let name = req.body.name
+        let photo = req.body.photo
+        let players = req.body.players
+        let playersDel = req.body.deletedPlayers
+        let newPlayers = req.body.newPlayers
+
+        if(newPlayers === undefined) {
+            newPlayers = []
+        }
+
+        playersDel = parsePlayers(playersDel)
+        players = parsePlayers(players)
+
+        let TeamObj = {
+            "id" :      parseInt(id, 10),
+            "name" :    name,
+            "photo":    photo,
+            "players":  players
+        }
+
+        Request({
+            url: API + "/teams",
+            method: "PUT",
+            json: true,
+            body: TeamObj
+        }, function (error, response, body){
+            if(error) {
+                res.end('{"status" : "fail"}');
+            } else {
+                deletePlayers(req, res, playersDel, newPlayers, name)
+            }
+        });
+
+    } else {
+        // Get, just rend page
+        Request.get(API + "/teams/" + req.team, (error, response, body) => {
+            if(error) {
+                return console.dir(error);
+            }
+            let team = JSON.parse(body)
+            for(let i = 0; i < team.players.length; i++) {
+                let player = team.players[i]
+                if(player.name === team.captain){
+                    team.captainID = player.id
+                    break
+                }
+            }
+            res.render("user/updateTeam", {
+                captain : req.captain,
+                admin : req.admin,
+                team : team
+            })
+        });
+    }
+}
+
+function parsePlayers(players) {
+    // no players
+    if(players === undefined) {
+        players = []
+    }
+
+    for(let i = 0; i < players.length; i++) {
+        players[i].id = parseInt(players[i].id, 10)
+    }
+    
+    return players
+}
+
+function deletePlayers(req, res, players, newPlayers, teamName) {
+
+    Request({
+        url: API + "/players",
+        method: "DELETE",
+        json: true,
+        body: players
+    }, function (error, response, body){
+        if(error) {
+            res.end('{"status" : "fail"}');
+        } else {
+            createdPlayers(req, res, newPlayers, teamName)
+        }
+    });
+}
+
+function createdPlayers(req, res, newPlayers, teamName) {
+
+    let playerObj = []
+
+    for(let i = 0; i < newPlayers.length; i++) {
+        let p = {}
+        p.name = newPlayers[i]
+        p.team = teamName
+        playerObj.push(p)
+    }
+
+    Request({
+        url: API + "/players",
+        method: "POST",
+        json: true,
+        body: playerObj
+    }, function (error, response, body){
+        if(error) {
+            res.end('{"status" : "fail"}');
+        } else {
+            res.end('{"status" : "success"}');
+        }
+    });
 }
 
 exports.schedule = function(req, res) {
@@ -103,8 +217,9 @@ function scheduleTeam(teamName, req, res) {
                 return console.dir(error);
             }
             let schedule = JSON.parse(body)
-            res.render("home/schedule", {
+            res.render("user/schedule", {
                 schedule: schedule,
+                captain : req.captain,
                 admin : req.admin
             })
         });

@@ -11,7 +11,8 @@ var user = require('../controllers/user')
 /* --- user routes --- */
 // captain routes
 router.use('/agendarHorario', authMd.isLoggedIn, userMd.userAccess, userMd.captainAccess, user.schedule)
-// router.use('/atualizarTime', authMd.isLoggedIn, userMd.userAccess, userMd.captainAccess, user.updateTeam)
+router.use('/atualizarTime', authMd.isLoggedIn, userMd.userAccess, userMd.captainAccess, user.updateTeam)
+
 // not captain routes
 router.use('/criarTime', authMd.isLoggedIn, userMd.userAccess, userMd.notCaptainAccess, user.createTeam)
 
