@@ -1,69 +1,30 @@
 var express = require('express')
 var router = express.Router()
 
+var authMd = require('../middlewares/auth')
+var userMd = require('../middlewares/user')
+
 var controller = require('../controllers/home')
 var user = require('../controllers/user')
 
-router.get('/', isLoggedIn, controller.home)
 
-// user routes
-router.use('/criarTime', isLoggedIn, userAccess, user.createTeam)
-router.use('/agendarHorario', isLoggedIn, userAccess, user.schedule)
+/* --- user routes --- */
+// captain routes
+router.use('/agendarHorario', authMd.isLoggedIn, userMd.userAccess, userMd.captainAccess, user.schedule)
+// router.use('/atualizarTime', authMd.isLoggedIn, userMd.userAccess, userMd.captainAccess, user.updateTeam)
+// not captain routes
+router.use('/criarTime', authMd.isLoggedIn, userMd.userAccess, userMd.notCaptainAccess, user.createTeam)
 
-// admin routes
-router.use('/admin', isLoggedIn, AdminAccess, require('./admin'))
 
-// general routes
-router.use('/times', isLoggedIn, require('./teams'))
-router.use('/jogosPassados', isLoggedIn, require('./previousMatches'))
-router.use('/proximosJogos', isLoggedIn, require('./nextMatches'))
-router.use('/artilharia', isLoggedIn, require('./score'))
-router.use('/grupos', isLoggedIn, require('./groups'))
+/* --- admin routes --- */
+router.use('/admin', authMd.isLoggedIn, userMd.AdminAccess, require('./admin'))
 
-function isLoggedIn(req, res, next) {
-    if (/*usario nao esta logado*/ false) {
-        req.logged = false
-        req.email = ""
-        req.admin = false
-        return next()
-    }
-
-    // user is logged in
-    req.logged = true
-    req.email = "email14"
-    req.admin = false
-    if (/* verificar email admin */ true){
-        req.admin = true
-    }
-    return next()
-}
-
-function userAccess(req, res, next) {
-    console.log("verify user access")
-    if(req.logged) {
-        return next()
-    }
-
-    // user is not logged in
-    res.render('home/index', {
-        logged : req.logged,
-        admin : req.admin
-    })
-}
-
-function AdminAccess(req, res, next) {
-    console.log("verify admin access")
-    if (req.admin) {
-        return next()
-    }
-
-    // user is not an admin
-    res.render('home/index', {
-        logged : req.logged,
-        admin : req.admin
-    })
-}
+/* --- general routes --- */
+router.get('/', authMd.isLoggedIn, controller.home)
+router.use('/times', authMd.isLoggedIn, require('./teams'))
+router.use('/jogosPassados', authMd.isLoggedIn, require('./previousMatches'))
+router.use('/proximosJogos', authMd.isLoggedIn, require('./nextMatches'))
+router.use('/artilharia', authMd.isLoggedIn, require('./score'))
+router.use('/grupos', authMd.isLoggedIn, require('./groups'))
 
 module.exports = router
-
-

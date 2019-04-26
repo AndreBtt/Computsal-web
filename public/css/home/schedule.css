@@ -9,6 +9,9 @@
     margin-top: 50px;
 }
 
+#resultModal button {
+    outline: none;
+}
 
 /*
 =====
