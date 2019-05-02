@@ -93,6 +93,22 @@ exports.updateTeam = function(req, res) {
             }
         });
 
+    } else if(req.method == "DELETE") {
+        let id = req.body.id
+
+        Request({
+            url: API + "/teams/" + id,
+            method: "DELETE",
+            json: true
+        }, function (error, response, body){
+            if(error) {
+                res.end('{"status" : "fail"}');
+            } else {
+                res.end('{"status" : "success"}');
+            }
+        });
+
+
     } else {
         // Get, just rend page
         Request.get(API + "/teams/" + req.team, (error, response, body) => {
