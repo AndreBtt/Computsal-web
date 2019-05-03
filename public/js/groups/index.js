@@ -1,14 +1,16 @@
-function displayGroup(currGroup, groupSize) {
-    for(var i = 1; i <= groupSize; i++) {
-        if (i == currGroup) continue
-        if($("#group" + i).not(":hidden")) {
-            $("#group" + i).hide(1000);
+function displayGroup(currGroup) {
+
+    let groups = document.getElementById("groups").getElementsByTagName("main")
+    
+    for(let i = 0; i < groups.length; i++) {
+        if($("#" + groups[i].id).not(":hidden")) {
+            $("#" + groups[i].id).hide(1000);
         }
     }
 
-    if($("#group" + currGroup).is(":hidden")){
-        $("#group" + currGroup).show(1000);
+    if($("#" + currGroup).is(":hidden")){
+        $("#" + currGroup).show(1000);
     } else{
-        $("#group" + currGroup).hide(1000);
+        $("#" + currGroup).hide(1000);
     }
 }

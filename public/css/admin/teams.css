@@ -42,7 +42,7 @@
 
 #resultModal button {
     outline: none;
-  }
+}
 
 @media(min-width:768px) {
     .time {

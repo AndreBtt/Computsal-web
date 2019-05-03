@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="/css/bootstrap.min.css" />
     <link rel="stylesheet" href="/css/animate.min.css" />
     <link rel="stylesheet" href="/css/main.css" />
-    <link rel="stylesheet" href="/css/groups/index.css" />
+    <link rel="stylesheet" href="/css/admin/group.css" />
   </head>
   <body>
     <nav id="topNav" class="navbar navbar-default navbar-fixed-top">
@@ -41,7 +41,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <h2 class="margin-top-0 text-primary">Grupos</h2>
+                    <h2 class="margin-top-0 text-primary">Grupo <%= group.group_number %></h2>
                     <hr class="primary">
                 </div>
             </div>
@@ -49,57 +49,92 @@
 
         <div class="container">
 
-            <div class="row">
-                <div class="col-lg-12 text-center">
+            <!-- Display teams on the selected group -->
 
-                    <!-- Display group list -->
-                    <% for (var i = 0; i < groups.length; i++) { %>
+            <div id="group" class="group" style="display: block;">
 
-                        <div class="col-lg-6 col-md-6 col-xs-6">
-                            <h2><span onclick="displayGroup('<%=groups[i].group_number%>')" class="click">Grupo <%= groups[i].group_number %></span></h2>
-                        </div>
+                <div class="ranking-header"> 
+                    <div class="col-lg-8 col-md-8 col-xs-8">Time</div> 
+                </div>
 
+                <div id="teams">
+                    <% for(let i = 0; i < group.teams.length; i++) { %>
+                        <% let team = group.teams[i] %>
+                        <main id="<%=team.id%>" class="ranking">
+                            <div class="col-lg-8 col-md-8 col-xs-8"><%= team.name %></div> 
+                            <div class="col-lg-1 col-md-1 col-xs-1 text-center">
+                                <img onclick="deleteTeam('<%= team.id %>')" src="/img/icons/delete.png" class="deleteButton" />
+                            </div>
+                        </main>
                     <% } %>
-                
                 </div>
             </div>
 
-            <div id="groups">
+            <div id="newTeam" class="col-md-12 text-center">
+                <button type="button" onclick="addTeam()" class="btn btn-primary btn-lg"> Adicionar Time </button>
+                <a id="addTeamButton" class="page-scroll" data-toggle="modal" href="#addTeamModal" style="display:none;"></a>
+            </div>
 
-                <!-- Display teams on the selected group -->
-                <% for (var i = 0; i < groups.length; i++) { %>
+            <div class="col-lg-6 col-md-6 col-xs-6 text-center">
+                <button id="send" class="btn btn-primary btn-block btn-lg" >Atualizar</button>
+                <a id="sendClick" class="page-scroll" data-toggle="modal" href="#resultModal" style="display:none;"></a>
+            </div>
 
-                    <main id="<%=groups[i].group_number%>" class="group">
-
-                        <div class="ranking-header"> 
-                            <div class="col-lg-1 col-md-1 col-xs-1">Ranking</div> 
-                            <div class="col-lg-7 col-md-7 col-xs-7 text-center">Time</div> 
-                            <div class="col-lg-1 col-md-1 col-xs-1">P</div> 
-                            <div class="col-lg-1 col-md-1 col-xs-1">V</div> 
-                            <div class="col-lg-1 col-md-1 col-xs-1">E</div> 
-                            <div class="col-lg-1 col-md-1 col-xs-1">D</div> 
-                        </div>
-
-                        <% for (var j = 0; j < groups[i].teams.length; j++) { %>
-                            <% team = (groups[i].teams)[j] %>
-                            <div class="ranking">
-                                <div class="col-lg-1 col-md-1 col-xs-1 text-center sec-color"><%= j+1 %></div> 
-                                <div class="col-lg-7 col-md-7 col-xs-7 text-center"><%= team.name %></div> 
-                                <div class="col-lg-1 col-md-1 col-xs-1 sec-color"><%= team.points %></div> 
-                                <div class="col-lg-1 col-md-1 col-xs-1"><%= team.win %></div> 
-                                <div class="col-lg-1 col-md-1 col-xs-1"><%= team.draw %></div> 
-                                <div class="col-lg-1 col-md-1 col-xs-1"><%= team.lose %></div> 
-                            </div>
-                        <% } %>
-
-                        </main>
-
-                <% } %>
-
-        </div>
+            <div class="col-lg-6 col-md-6 col-xs-6 text-center">
+                <button id="deleteWarning" class="btn btn-primary btn-block btn-lg" >Deletar</button>
+                <a id="deleteWarningClick" class="page-scroll" data-toggle="modal" href="#confirmModal" style="display:none;"></a>
+            </div>
 
         </div>
     </section>
+
+    <div id="addTeamModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="text-center">
+                    <h3>Escolha o time que deseja adicionar</h3>
+                </div>
+                <div class="text-center">
+                    <div class="dropdown">
+                        <h3 onclick="dropDown()" class="dropbtn" style="color: #43b699">Times</h3>
+                        <div id="myDropdown" class="dropdown-content">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+
+    <div id="confirmModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div>
+                    <h3>Você tem certeza que deseja excluir esse grupo ? </h3>
+                </div>
+            
+                <div class="text-center">
+                    <button id="delete" class="btn btn-primary btn-lg" style="width:50%; margin-top: 15px;" >Excluir</button>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+
+    <div id="resultModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div id="modaltext"></div>
+                <div class="text-center">
+                    <a href="/"><button class="btn btn-primary btn-lg" style="width:50%; margin-top: 15px;" >Voltar</button></a>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
 
     
     <% if(logged) { %>
@@ -153,12 +188,21 @@
             </div>
         </div>
     <% } %>
+    <input id="groupNumber" style="display: none" value="<%=group.group_number%>">
+    <% let teamsID = [] %>
+    <% let teamsName = [] %>
+    <% for(let i = 0; i < teams.length; i++) { %>
+        <% teamsID.push(teams[i].id) %>
+        <% teamsName.push(teams[i].name) %>
+    <% } %>
+    <input id="allTeamsID" style="display: none" value='<%= teamsID %>')">
+    <input id="allTeamsName" style="display: none" value='<%= teamsName %>')">
     <!--scripts loaded here -->
     <script src="/js/jquery.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
     <script src="/js/jquery.easing.min.js"></script>
     <script src="/js/home/wow.js"></script>
     <script src="/js/home/index.js"></script>
-    <script src="/js/groups/index.js"></script>
+    <script src="/js/admin/group.js"></script>
   </body>
 </html>  

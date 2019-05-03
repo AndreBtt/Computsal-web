@@ -21,10 +21,7 @@
     border: #282828;
 }
 
-#newPlayer {
-    margin-top: 30px;
-    margin-bottom: 30px;
-}
+
 
 .group {
     width: 100%;
@@ -70,6 +67,11 @@ input:focus ~ .bar:before {
   height: 150%;
   background: #43b699;
   transform: translateX(-100%);
+}
+
+#newPlayer {
+  margin-top: 30px;
+  margin-bottom: 30px;
 }
 
 #newPlayer button {

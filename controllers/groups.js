@@ -9,10 +9,8 @@ exports.index = function(req, res) {
             return console.dir(error);
         }
         let groups = JSON.parse(body);
-        groupSize = groups.length;
 
         res.render('groups/index', {
-            groupSize : groupSize,
             groups : groups,
             logged : req.logged,
             captain : req.captain,
