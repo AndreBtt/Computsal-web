@@ -1,27 +1,57 @@
+
+let deletedTeams = []
+
 $(document).ready(function() {
     
+    $("#deleteWarning").click(function () {
+        document.getElementById('deleteWarningClick').click();
+    })
+
+    $("#delete").click(function () {
+        $("#confirmModal").css("display", "none");
+
+        $.ajax({
+            url: '/admin/times',
+            type: 'DELETE',
+            data: {
+                "ids" : deletedTeams
+            },
+            success: function(result) {
+                let response = JSON.parse(result)
+                if(response.status === "success") {
+                    let h2 = document.createElement("h2")
+                    h2.innerHTML = "Parabens!"
+                    document.getElementById("modaltext").appendChild(h2)
+
+                    let h3 = document.createElement("h3")
+                    h3.innerHTML = "Os times foram deletados com sucesso !"
+                    document.getElementById("modaltext").appendChild(h3)
+
+                    document.getElementById('sendClick').click();
+                    
+                    $("#resultModal").css("display", "block");
+                } else {
+                    let h2 = document.createElement("h2")
+                    h2.innerHTML = "Oppss"
+                    document.getElementById("modaltext").appendChild(h2)
+
+                    let h3 = document.createElement("h3")
+                    h3.innerHTML = "Não conseguimos deletar os times, tente novamente mais tarde."
+                    document.getElementById("modaltext").appendChild(h3)
+
+                    document.getElementById('sendClick').click();
+
+                    $("#resultModal").css("display", "block");
+                }
+            }
+        });
+
+    })
 
 })
 
+function deleteTeam(id) {
+    deletedTeams.push(id)
 
-function deleteTeam(team) {
-    console.log(team)
-    $('#' + team).hide('slow', function(){ $('#' + team).remove(); });
-}
-
-function save() {
-    // $.ajax({
-    //     url: '/admin/times',
-    //     type: 'DELETE',
-    //     success: function(result) {
-            
-    //         // JOGA NA TELA QUE DEU CERTO QUANDO ELE CLICAR MANDA PRA PROXIMA PAG
-    //         window.location.href='/admin';
-    //     }
-    // });
-
-
-
-
-    
+    $('#' + id).hide('slow', function(){ $('#' + id).remove(); });
 }

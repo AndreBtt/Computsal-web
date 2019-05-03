@@ -12,7 +12,29 @@ exports.index = function(req, res) {
 exports.teams = function(req, res) {
 
     if(req.method === "DELETE") {
-        console.log("eita")
+        let teamsID = req.body.ids
+
+        if(teamsID === undefined) {
+            teamsID = []
+        }
+
+        for(let i = 0; i < teamsID.length; i++) {
+            teamsID[i] = parseInt(teamsID[i], 10)
+        }
+
+        Request({
+            url: API + "/teams",
+            method: "DELETE",
+            json: true,
+            body: teamsID,
+        }, function (error, response, body){
+            if(error) {
+                res.end('{"status" : "fail"}');
+            } else {
+                res.end('{"status" : "success"}');
+            }
+        });
+        
     } else {
         Request.get(API + "/teams", (error, response, body) => {
             if(error) {

@@ -82,7 +82,7 @@ input:focus ~ .bar:before {
   outline: none;
 }
 
-#send button {
+#send {
   outline: none;
 }
 

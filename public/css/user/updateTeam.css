@@ -88,11 +88,19 @@ input:focus ~ .bar:before {
   outline: none;
 }
 
-#send button {
+#send {
+  outline: none;
+}
+
+#deleteWarning {
   outline: none;
 }
 
 #resultModal button {
+  outline: none;
+}
+
+#delete {
   outline: none;
 }
 
