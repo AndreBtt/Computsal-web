@@ -5,6 +5,6 @@ var controller = require('../controllers/teams')
 
 router.get('/', controller.index)
 
-router.get('/:teamName', controller.team)
+router.get('/:teamID', controller.team)
 
 module.exports = router

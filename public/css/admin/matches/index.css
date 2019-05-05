@@ -1,0 +1,122 @@
+.ranking {
+    border-bottom: 1px solid #DDD;
+    display: flex;
+    align-items: center;
+}
+
+.jogador {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 78px;
+}
+
+#nextMatches, #prevMatches {
+    display: none;
+}
+
+.click {
+    transition: all .35s;
+    transition-property: all;
+    transition-duration: 0.35s;
+    transition-timing-function: ease;
+    transition-delay: 0s;
+    font-size: 25px;
+}
+
+.click:hover, click:focus {
+    cursor: pointer;
+    color: #43b699;
+    text-decoration: underline;
+    text-decoration-line: underline;
+    text-decoration-style: initial;
+    text-decoration-color: initial;
+    outline: 0;
+    outline-color: initial;
+    outline-style: initial;
+    outline-width: 0px
+}
+
+.time {
+    font-size: 15px;
+    color: #43b699;
+}
+
+.tempo {
+    font-size: 20px;
+    /* color: #43b699; */
+}
+
+h4 {
+    margin-bottom: 0;
+}
+
+h6 {
+    margin-top: 0;
+}
+
+.round {
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+
+.round-size {
+    font-size: 25px;
+}
+
+.team {
+    font-size: 15px;
+    color: #43b699;
+}
+
+.team-score {
+    font-size: 30px;
+}
+
+.smallX {
+    font-size: 15px;
+}
+
+.infoText {
+    font-size: 20px;
+}
+
+@media(min-width:768px) {
+
+    .infoText {
+        font-size: 25px;;
+    }
+
+    .time {
+        font-size: 30px;
+    }
+
+    .tempo {
+        font-size: 30px;
+    }
+
+    .team-score {
+        font-size: 35px;
+    }
+
+    .smallX {
+        font-size: 15px;
+    }
+
+    .team {
+        font-size: 30px;
+    }
+
+    .details {
+        font-size: 15px;
+    }
+
+    .round-size {
+        font-size: 30px;
+    }
+
+    .click {
+        font-size: 35px;
+    }
+
+}

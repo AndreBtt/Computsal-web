@@ -20,9 +20,9 @@ exports.index = function(req, res) {
 
 // show an specific team
 exports.team = function(req, res) {
-    let teamName = req.params.teamName
+    let teamID = req.params.teamID
 
-    Request.get(API + "/teams/" + teamName, (error, response, body) => {
+    Request.get(API + "/teams/" + teamID, (error, response, body) => {
         if(error) {
             return console.dir(error);
         }
@@ -31,6 +31,7 @@ exports.team = function(req, res) {
             team : team,
             logged : req.logged,
             captain : req.captain,
-            admin : req.admin})
+            admin : req.admin
+        })
     });
 }

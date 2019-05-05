@@ -9,7 +9,7 @@ exports.isLoggedIn = function(req, res, next) {
         req.email = ""
         req.admin = false
         req.captain = false
-        req.team = ""
+        req.teamID = ""
         return next()
     }
 
@@ -17,21 +17,19 @@ exports.isLoggedIn = function(req, res, next) {
     req.logged = true
     req.email = "email14"
     req.admin = false
-    req.team = ""
     req.captain = false
     if (/* verificar email admin */ true){
         req.admin = true
     }
 
-    
     Request.get(API + "/captainTeam/" + req.email, (error, response, body) => {
         if(error) {
             return console.dir(error);
         }
-        let team = JSON.parse(body).team
-        if(!(team === undefined)) {
+        let teamID = JSON.parse(body).team_id
+        if(!(teamID === undefined)) {
             req.captain = true
-            req.team = team
+            req.teamID = teamID
         }
         
         return next()

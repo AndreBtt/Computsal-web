@@ -1,0 +1,60 @@
+#send {
+    margin-top: 50px;
+}
+
+#resultModal button {
+    outline: none;
+}
+
+#send {
+    outline: none;
+    margin-bottom: 50px;
+}
+
+.items {
+    margin-top: 50px;
+}
+
+.imgOpt {
+    width : 25px;
+    height: 25px;
+    cursor: pointer;
+}
+
+.timeOpt {
+    font-size: 25px;
+}
+
+#setTime {
+    outline: none;
+}
+
+#newTime {
+    margin-top: 50px;
+}
+  
+#newTime button {
+    border: none;
+    outline: none;
+    border-color: #282828;
+}
+
+#inputHour, #inputMinute {
+    font-size: 25px;
+}
+
+#warningText {
+    display:none; 
+    color: #ff0000;
+}
+
+@media(min-width:768px) {
+    .imgOpt {
+        width : 30px;
+        height: 30px; 
+    }
+    
+    .timeOpt {
+        font-size: 30px;
+    }
+}

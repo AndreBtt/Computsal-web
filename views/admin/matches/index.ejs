@@ -2,11 +2,12 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Times</title>
+    <title>Computsal</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/bootstrap.min.css" />
     <link rel="stylesheet" href="/css/animate.min.css" />
     <link rel="stylesheet" href="/css/main.css" />
+    <link rel="stylesheet" href="/css/admin/matches/index.css" />
   </head>
   <body>
     <nav id="topNav" class="navbar navbar-default navbar-fixed-top">
@@ -36,31 +37,115 @@
         </div>
     </nav>
     
-    <section id="two" class="bg-dark">
+    <section id="two">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <h2 class="margin-top-0 text-primary">Times</h2>
+                    <h2 class="margin-top-0 text-primary">Próximos jogos</h2>
                     <hr class="primary">
                 </div>
             </div>
         </div>
+
         <div class="container">
-            <div class="row">
-                <% for(var i = 0; i < teams.length; i++) { %>
-                <div class="col-lg-4 col-md-4 text-center">
-                    <div class="feature">
-                        <a href="/times/<%= teams[i].id %>">
-                            <img class="icon-lg wow fadeInUp" data-wow-delay=".2s" src="<%= teams[i].photo %>" width="140" height="140"/>
-                            <h3><%= teams[i].name %></h3>
-                        </a>
-                    </div>
+            <div class="row" style="margin-bottom: 35px;">
+                <div class="col-lg-6 col-md-6 col-xs-6 text-center">
+                    <span onclick="displayNext()" class="click" >Iniciar partida</span>
                 </div>
-                <% } %>
+
+                <div class="col-lg-6 col-md-6 col-xs-6 text-center">
+                    <span onclick="displayPrev()" class="click" >Atualizar partida</span>
+                </div>
             </div>
         </div>
-    </section>
 
+        <div id="prevMatches" class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <span class="infoText">Selecione abaixo a partida que deseja atualizar.</span>
+                </div>
+            </div>
+
+            <% let round = 0 %>
+            <% let map = new Map() %>
+            <% map.set(1, "FINAL") %>
+            <% map.set(2, "SEMI FINAL") %>
+            <% map.set(4, "QUARTAS DE FINAL") %>
+            <% map.set(8, "OITAVAS DE FINAL") %>
+            <% let seconds = 0 %>
+
+            <% for (var i = 0; i < prevMatches.length; i++) { %>
+                <% if(seconds < 5) seconds++ %>
+                <% let delay = "." + seconds + "s" %>
+
+                <!-- Display correct round match -->
+                <% if (prevMatches[i].type !== 0) { %>
+                    <!-- elimination phase -->
+                    <div class="row round wow fadeIn" data-wow-delay="<%=delay%>">
+                        <div class="col-lg-12 text-center">
+                            <h2 class="round-size"><%= map.get(prevMatches[i].type) %></h2>
+                        </div>
+                    </div>
+                <% } else if (round !== prevMatches[i].phase) { %>
+                    <!-- group phase -->
+                    <div class="row round wow fadeIn" data-wow-delay="<%=delay%>">
+                        <div class="col-lg-12 text-center">
+                            <h2 class="round-size"><%= prevMatches[i].phase %>&ordf; RODADA</h2>
+                        </div>
+                    </div>
+                    <% round = prevMatches[i].phase %>
+                <% } %>
+
+                <div class="ranking wow fadeIn" data-wow-delay="<%=delay%>">
+                    <div class="jogador">
+                        <div class="col-lg-5 col-md-5 col-xs-6">
+                            <span class="team"><%= prevMatches[i].team1 %></span>
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-xs-6 text-center">
+                            <h4 class="team-score"><%= prevMatches[i].score1 %> <span class="smallX">x</span> <%= prevMatches[i].score2 %></h4>
+                            <a href="/jogosPassados/<%= prevMatches[i].id %>"><h6 class="details">Atualizar</h6></a>
+                        </div>
+                        <div class="col-lg-5 col-md-5 col-xs-6 text-right">
+                                <span class="team"><%= prevMatches[i].team2 %></span>
+                            </div> 
+                    </div>
+                </div>
+
+            <% } %>
+
+        </div>
+
+        <div id="nextMatches" class="container">
+            <div class="row" style="margin-bottom: 45px;">
+                <div class="col-lg-12 text-center">
+                    <span class="infoText">Selecione abaixo a partida que deseja começar.</span>
+                </div>
+            </div>
+
+            <% seconds = 0 %>
+
+            <% for (var i = 0; i < nextMatches.length; i++) { %>
+                <% if(seconds < 5) seconds++ %>
+                <% let delay = "." + seconds + "s" %>
+                <div class="ranking wow fadeIn" data-wow-delay="<%=delay%>">
+                    <div class="jogador">
+                        <div class="col-lg-5 col-md-5 col-xs-6">
+                            <span class="time"><%= nextMatches[i].team1 %></span>
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-xs-6 text-center">
+                            <span class="tempo"><%= nextMatches[i].time.substring(0, nextMatches[i].time.length - 3) %></span>
+                            <a href="/admin/partida/<%=nextMatches[i].id%>"><h6 class="details">Começar</h6></a>
+                        </div>
+                        <div class="col-lg-5 col-md-5 col-xs-6 text-right">
+                            <span class="time"><%= nextMatches[i].team2 %></span>
+                        </div> 
+                    </div>
+                </div>
+            <% } %>
+        </div>
+        
+    </section>
+    
     <% if(logged) { %>
         <div id="login" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog">
@@ -118,5 +203,6 @@
     <script src="/js/jquery.easing.min.js"></script>
     <script src="/js/home/wow.js"></script>
     <script src="/js/home/index.js"></script>
+    <script src="/js/admin/matches/index.js"></script>
   </body>
-</html>
+</html>  

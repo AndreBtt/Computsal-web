@@ -1,5 +1,4 @@
 exports.userAccess = function(req, res, next) {
-    console.log("verify user access")
     if(req.logged) {
         return next()
     }
@@ -13,7 +12,6 @@ exports.userAccess = function(req, res, next) {
 }
 
 exports.AdminAccess = function(req, res, next) {
-    console.log("verify admin access")
     if (req.admin) {
         return next()
     }

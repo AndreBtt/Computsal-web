@@ -111,7 +111,7 @@ exports.updateTeam = function(req, res) {
 
     } else {
         // Get, just rend page
-        Request.get(API + "/teams/" + req.team, (error, response, body) => {
+        Request.get(API + "/teams/" + req.teamID, (error, response, body) => {
             if(error) {
                 return console.dir(error);
             }
@@ -194,13 +194,15 @@ exports.schedule = function(req, res) {
         if(error) {
             return console.dir(error);
         }
-        let teamObj = JSON.parse(body)
-        let teamName = teamObj.team
-        scheduleTeam(teamName, req, res)
+        let teamID = JSON.parse(body).team_id
+        if(teamID === undefined) {
+            res.end('{"status" : "fail"}');
+        }
+        scheduleTeam(teamID, req, res)
     });
 }
 
-function scheduleTeam(teamName, req, res) {
+function scheduleTeam(teamID, req, res) {
     if(req.method === "PUT") {
 
         // receive data to update schedule    
@@ -214,7 +216,7 @@ function scheduleTeam(teamName, req, res) {
             let scheduleObj = JSON.parse('['+schedule.join(',')+']');
 
             Request({
-                url: API + "/schedule/" + teamName,
+                url: API + "/schedule/" + teamID,
                 method: "PUT",
                 json: true,
                 body: scheduleObj
@@ -228,7 +230,7 @@ function scheduleTeam(teamName, req, res) {
         }
 
     } else {
-        Request.get(API + "/schedule/" + teamName, (error, response, body) => {
+        Request.get(API + "/schedule/" + teamID, (error, response, body) => {
             if(error) {
                 return console.dir(error);
             }

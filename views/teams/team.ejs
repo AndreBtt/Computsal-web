@@ -205,7 +205,11 @@
                 </div>
                 
                 <div class="col-lg-4 col-md-4 col-xs-4 text-center info-margin">
-                    <h2><%= team.group %></h2>
+                    <% if(team.group == -1) { %>
+                        <h2>-</h2>
+                    <% } else {%>
+                        <h2><%= team.group %></h2>
+                    <% }%>
                     <span>Grupo</span>
                 </div>
             </div>
