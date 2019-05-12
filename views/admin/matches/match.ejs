@@ -58,10 +58,20 @@
                     <a id="addAction" class="page-scroll" data-toggle="modal" href="#addActionModal" style="display:none;"></a>
                 </div>
             </div>
-        </div>
 
-        <div class="container">
+            <div class="row" style="margin-top: 6%;">
+                
+                <div class="ranking-header" style="margin-bottom: 1%;"> 
+                    <div class="col-lg-4 col-md-4 col-xs-4">Jogador</div> 
+                    <div class="col-lg-4 col-md-4 col-xs-4">Time</div> 
+                    <div class="col-lg-1 col-md-1 col-xs-1"><img class="icon" src="/img/icons/ball.png" ></div> 
+                    <div class="col-lg-1 col-md-1 col-xs-1"><img class="icon" src="/img/icons/yellow-card.png" ></div>
+                    <div class="col-lg-1 col-md-1 col-xs-1"><img class="icon" src="/img/icons/red-card.png" ></div> 
+                </div>
+                <div id="playersTable"></div>
+                </div>
 
+            </div>
         </div>
 
     </section>
@@ -88,12 +98,12 @@
                             <div id="myDropdown" class="dropdown-content">
                                 <div id="team1Players">
                                     <% for(let i = 0; i < t1.players.length; i++) { %>
-                                        <h2 onclick="updateCurrPlayer('<%=t1.players[i].name%>')" class="teamNameList"><%= t1.players[i].name%></h2>
+                                        <h2 onclick="updateCurrPlayer('<%=t1.players[i].name%>', '<%=t1.players[i].id%>')" class="teamNameList"><%= t1.players[i].name%></h2>
                                     <% } %>
                                 </div>
                                 <div id="team2Players">
                                     <% for(let i = 0; i < t2.players.length; i++) { %>
-                                        <h2 onclick="updateCurrPlayer('<%=t2.players[i].name%>')" class="teamNameList"><%= t2.players[i].name%></h2>
+                                        <h2 onclick="updateCurrPlayer('<%=t2.players[i].name%>', '<%=t2.players[i].id%>')" class="teamNameList"><%= t2.players[i].name%></h2>
                                     <% } %>
                                 </div>
                                 <div id="team2Players">

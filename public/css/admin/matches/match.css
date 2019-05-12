@@ -5,6 +5,18 @@
     margin-bottom: 20px;
 }
 
+.ranking-header {
+    display: flex;
+    align-items: center;
+    height: 40px;
+    border-width: 0;
+    border-style: solid;
+    border-color: #ddd;
+    color: #999;
+    font-size: 11px;
+    text-transform: uppercase;
+}
+
 .ranking img {
     width: 15px;
     height: 15px;
@@ -30,8 +42,8 @@
     color: #ff0000;
 }
 
-.group {
-    margin-top: 6%;
+.deleteButton {
+    cursor: pointer;
 }
 
 .ranking {
