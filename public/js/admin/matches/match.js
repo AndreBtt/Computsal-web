@@ -11,11 +11,6 @@ $(document).ready(function() {
         }
     }
 
-    $("#send").click(function() {
-        // let players = document.getElementById("playersTable").getElementsByTagName("main")
-
-    })
-
     $("#action").click(function () {        
         // set default config
         $("#warningText").hide()
@@ -35,6 +30,62 @@ $(document).ready(function() {
     team1 = $("#team1Selected").text()
     team2 = $("#team2Selected").text()
 })
+
+function send(matchID) {
+    let obj = {}
+
+    obj.next_match_id = matchID
+    obj.players = []
+
+    let players = document.getElementById("playersTable").getElementsByTagName("main")
+    for(let i = 0; i < players.length; i++) {
+        let playerID = players[i].id
+        let goals = parseInt($("#goals" + playerID).text(),10)
+        let yellow = parseInt($("#yellow" + playerID).text(),10)
+        let red = parseInt($("#red" + playerID).text(),10)
+        
+        let p = {}
+        p.player_id = playerID
+        p.score = goals
+        p.yellowCard = yellow
+        p.redCard = red
+        obj["players"].push(p)
+    }
+
+    $.ajax({
+        url: '/admin/partida/' + matchID,
+        type: 'POST',
+        data: obj,
+        success: function(result) {
+            let response = JSON.parse(result)
+            if(response.status === "success") {
+                let h2 = document.createElement("h2")
+                h2.innerHTML = "Parabens!"
+                document.getElementById("modaltext").appendChild(h2)
+
+                let h3 = document.createElement("h3")
+                h3.innerHTML = "O jogo foi criado com sucesso !"
+                document.getElementById("modaltext").appendChild(h3)
+
+                document.getElementById('sendClick').click();
+
+                $("#resultModal").css("display", "block");
+            } else {
+                let h2 = document.createElement("h2")
+                h2.innerHTML = "Oppss"
+                document.getElementById("modaltext").appendChild(h2)
+
+                let h3 = document.createElement("h3")
+                h3.innerHTML = "Não conseguimos criar o jogo, tente novamente mais tarde."
+                document.getElementById("modaltext").appendChild(h3)
+
+                document.getElementById('sendClick').click();
+
+                $("#resultModal").css("display", "block");
+            }
+        }
+    });
+}
 
 function dropDown() {
     if($("#myDropdown").is(":hidden")){
@@ -124,6 +175,7 @@ function updateTable() {
         divTeam.classList.add("col-lg-4")
         divTeam.classList.add("col-md-4")
         divTeam.classList.add("col-xs-4")
+        divTeam.id = "team" + playerSelectedID
         divTeam.innerText = teamSelectedName
 
         let divGoals = document.createElement("div")
@@ -176,11 +228,53 @@ function updateTable() {
         $("#red" + playerSelectedID).text(red == "" ? 0 : red)
     }
 
+    let team1Score = 0
+    let team2Score = 0
+
+    let players = document.getElementById("playersTable").getElementsByTagName("main")
+    for(let i = 0; i < players.length; i++) {
+        let playerID = players[i].id
+
+        let goals = parseInt($("#goals" + playerID).text(),10)
+        let team = $("#team" + playerID).text()
+        
+        if(team == team1) {
+            team1Score += goals
+        } else {
+            team2Score += goals
+        }
+    }  
+    
+    $("#score1").text(team1Score)
+    $("#score2").text(team2Score)
+
     document.getElementById('addAction').click();
 }
 
 function deletePlayer(id) {    
-    $('#' + id).hide('slow', function(){ $('#' + id).remove(); });
+    $('#' + id).hide('slow', function(){ 
+        $('#' + id).remove(); 
+
+        let team1Score = 0
+        let team2Score = 0
+    
+        let players = document.getElementById("playersTable").getElementsByTagName("main")
+        for(let i = 0; i < players.length; i++) {
+            let playerID = players[i].id
+    
+            let goals = parseInt($("#goals" + playerID).text(),10)
+            let team = $("#team" + playerID).text()
+            
+            if(team == team1) {
+                team1Score += goals
+            } else {
+                team2Score += goals
+            }
+        }  
+        
+        $("#score1").text(team1Score)
+        $("#score2").text(team2Score)
+    });
 }
 
 function updateInput(type, id) {

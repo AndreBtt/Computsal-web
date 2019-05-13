@@ -266,51 +266,90 @@ exports.matches = function(req, res) {
 }
 
 exports.match = function(req, res) {
-    let id = req.params.id
+    if(req.method == "POST") {
+        let obj = {}
+        obj.next_match_id = parseInt(req.body.next_match_id,10)
+        obj.players = req.body.players
 
-    Request.get(API + "/nextMatches", (error, response, body) => {
-        if(error) {
-            return console.dir(error);
-        }
-        let matches = JSON.parse(body)
-
-
-        if(matches == undefined) {
-            matches = []
+        if(obj.players === undefined) {
+            obj.players = []
         }
 
-        let match
+        for(let i = 0; i < obj.players.length; i++) {
+            obj.players[i].player_id = parseInt(obj.players[i].player_id,10)
+            obj.players[i].score = parseInt(obj.players[i].score,10)
+            obj.players[i].yellowCard = parseInt(obj.players[i].yellowCard,10)
+            obj.players[i].redCard = parseInt(obj.players[i].redCard,10)
+        }
 
-        for(let i = 0 ; i < matches.length; i++) {
-            if(matches[i].id == id) {
-                match = matches[i]
-                break
+        Request({
+            url: API + "/previousMatches",
+            method: "POST",
+            json: true,   
+            body: obj
+        }, function (error, response, body){
+            if(error) {
+                res.end('{"status" : "fail"}');
+            } else {
+                res.end('{"status" : "success"}');
             }
-        }
+        });
 
-        Request.get(API + "/teams/" + match.team1_id, (error, response, body) => {
+    } else if(req.method == "GET") { 
+        let id = req.params.id
+
+        Request.get(API + "/nextMatches", (error, response, body) => {
             if(error) {
                 return console.dir(error);
             }
-            let t1 = JSON.parse(body);
+            let matches = JSON.parse(body)
 
-            Request.get(API + "/teams/" + match.team2_id, (error, response, body) => {
+
+            if(matches == undefined) {
+                matches = []
+            }
+
+            let match
+
+            for(let i = 0 ; i < matches.length; i++) {
+                if(matches[i].id == id) {
+                    match = matches[i]
+                    break
+                }
+            }
+
+            if(match == undefined) {
+                res.render('home/index', {
+                    logged : req.logged,
+                    admin : req.admin,
+                    captain : req.captain
+                })
+                return
+            }
+
+            Request.get(API + "/teams/" + match.team1_id, (error, response, body) => {
                 if(error) {
                     return console.dir(error);
                 }
-                let t2 = JSON.parse(body);
+                let t1 = JSON.parse(body);
 
-                res.render("admin/matches/match", {
-                    t1: t1,
-                    t2: t2,
-                    match: match,
-                    logged : req.logged,
-                    captain : req.captain,
-                    admin : req.admin,
-                })
+                Request.get(API + "/teams/" + match.team2_id, (error, response, body) => {
+                    if(error) {
+                        return console.dir(error);
+                    }
+                    let t2 = JSON.parse(body);
+
+                    res.render("admin/matches/match", {
+                        t1: t1,
+                        t2: t2,
+                        match: match,
+                        logged : req.logged,
+                        captain : req.captain,
+                        admin : req.admin,
+                    })
+                });
+                
             });
-            
         });
-    });
-
+    }
 }
