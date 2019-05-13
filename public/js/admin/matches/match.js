@@ -4,7 +4,6 @@ let team1
 let team2
 
 $(document).ready(function() {
-
     // Close the dropdown if the user clicks outside of it
     window.onclick = function(event) {
         if (!event.target.matches('.dropbtn')) {
@@ -12,8 +11,12 @@ $(document).ready(function() {
         }
     }
 
-    $("#action").click(function () {
-        
+    $("#send").click(function() {
+        // let players = document.getElementById("playersTable").getElementsByTagName("main")
+
+    })
+
+    $("#action").click(function () {        
         // set default config
         $("#warningText").hide()
         $("#currPlayer").text("")
@@ -72,6 +75,17 @@ function displayModalTeam(id) {
 function updateCurrPlayer(player, id) {
     $("#currPlayer").text(player)
     playerSelectedID = id
+
+    // player exists, update goals, yellow and red card
+    if(document.getElementById(playerSelectedID) != null) {
+        let goals = parseInt($("#goals" + playerSelectedID).text(),10)
+        let yellow = parseInt($("#yellow" + playerSelectedID).text(),10)
+        let red = parseInt($("#red" + playerSelectedID).text(),10)
+
+        $("#inputGoal").val(goals)
+        $("#inputYellow").val(yellow)
+        $("#inputRed").val(red)
+    }
 }
 
 function updateTable() {
@@ -88,7 +102,7 @@ function updateTable() {
     let red = $("#inputRed").val()
 
     if(goals == "" && yellow == "" && red == "") {
-        $("#warningText").text("*Nenhum campo de ação selecionado")
+        $("#warningText").text("*Nenhum campo de ação preenchido")
         $("#warningText").show()
         return
     }
@@ -96,9 +110,9 @@ function updateTable() {
     if(document.getElementById(playerSelectedID) == null) {
         // this player does not exist yet
 
-        let divRanking = document.createElement("div")
-        divRanking.classList.add("ranking")
-        divRanking.id = playerSelectedID
+        let mainRaking = document.createElement("main")
+        mainRaking.classList.add("ranking")
+        mainRaking.id = playerSelectedID
 
         let divPlayer = document.createElement("div")
         divPlayer.classList.add("col-lg-4")
@@ -116,18 +130,21 @@ function updateTable() {
         divGoals.classList.add("col-lg-1")
         divGoals.classList.add("col-md-1")
         divGoals.classList.add("col-xs-1")
+        divGoals.id = "goals" + playerSelectedID
         divGoals.innerText = goals == "" ? 0 : goals
 
         let divYellow = document.createElement("div")
         divYellow.classList.add("col-lg-1")
         divYellow.classList.add("col-md-1")
         divYellow.classList.add("col-xs-1")
+        divYellow.id = "yellow" + playerSelectedID
         divYellow.innerText = yellow == "" ? 0 : yellow
 
         let divRed = document.createElement("div")
         divRed.classList.add("col-lg-1")
         divRed.classList.add("col-md-1")
         divRed.classList.add("col-xs-1")
+        divRed.id = "red" + playerSelectedID
         divRed.innerText = red == "" ? 0 : red 
 
         let divDelete = document.createElement("div")
@@ -143,22 +160,46 @@ function updateTable() {
         img.setAttribute('onclick','deletePlayer(' + playerSelectedID + ');')
         divDelete.appendChild(img)
 
-        divRanking.appendChild(divPlayer)
-        divRanking.appendChild(divTeam)
-        divRanking.appendChild(divGoals)
-        divRanking.appendChild(divYellow)
-        divRanking.appendChild(divRed)
-        divRanking.appendChild(divDelete)
+        mainRaking.appendChild(divPlayer)
+        mainRaking.appendChild(divTeam)
+        mainRaking.appendChild(divGoals)
+        mainRaking.appendChild(divYellow)
+        mainRaking.appendChild(divRed)
+        mainRaking.appendChild(divDelete)
 
-        document.getElementById("playersTable").appendChild(divRanking)
+        document.getElementById("playersTable").appendChild(mainRaking)
 
     } else {
         // this player already exists
-        
-
+        $("#goals" + playerSelectedID).text(goals == "" ? 0 : goals)
+        $("#yellow" + playerSelectedID).text(yellow == "" ? 0 : yellow)
+        $("#red" + playerSelectedID).text(red == "" ? 0 : red)
     }
+
+    document.getElementById('addAction').click();
 }
 
-function deletePlayer(id) {
+function deletePlayer(id) {    
     $('#' + id).hide('slow', function(){ $('#' + id).remove(); });
+}
+
+function updateInput(type, id) {
+    if(type == 'sub') {
+        let prevValue = $("#" + id).val()
+        if(prevValue == "") {
+            prevValue = 0
+        } else {
+            prevValue = parseInt($("#" + id).val(),10)
+        }
+        if(prevValue == 0) return
+        $("#" + id).val( prevValue-1)
+    } else {
+        let prevValue = $("#" + id).val()
+        if(prevValue == "") {
+            prevValue = 0
+        } else {
+            prevValue = parseInt($("#" + id).val(),10)
+        }
+        $("#" + id).val( prevValue+1)
+    }
 }

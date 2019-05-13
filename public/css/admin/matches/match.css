@@ -5,6 +5,10 @@
     margin-bottom: 20px;
 }
 
+.ranking-header-icon {
+    padding-bottom: 15px;
+}
+
 .ranking-header {
     display: flex;
     align-items: center;
@@ -106,4 +110,7 @@
         height: 30px;
     }
 
+    .text-header {
+        font-size: 20px;        
+    }
 }
