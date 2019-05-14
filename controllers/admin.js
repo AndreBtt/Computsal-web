@@ -265,6 +265,72 @@ exports.matches = function(req, res) {
     });
 }
 
+exports.previouMatch = function(req, res) {
+    if(req.method == "PUT") {
+        let matchID = req.body.id
+        let players = req.body.players
+
+        if(players === undefined) {
+            players = []
+        }
+
+        for(let i = 0; i < players.length; i++) {
+            players[i].player_id = parseInt(players[i].player_id,10)
+            players[i].score = parseInt(players[i].score,10)
+            players[i].yellowCard = parseInt(players[i].yellowCard,10)
+            players[i].redCard = parseInt(players[i].redCard,10)
+        }
+
+        Request({
+            url: API + "/previousMatches/" + matchID,
+            method: "PUT",
+            json: true,   
+            body: players
+        }, function (error, response, body){
+            if(error) {
+                res.end('{"status" : "fail"}');
+            } else {
+                res.end('{"status" : "success"}');
+            }
+        });
+        
+    } else if(req.method == "GET") {
+        let id = req.params.id
+
+        Request.get(API + "/previousMatches/" + id, (error, response, body) => {
+            if(error) {
+                return console.dir(error)
+            }
+            let match = JSON.parse(body)
+
+            Request.get(API + "/teams/" + match.team1_id, (error, response, body) => {
+                if(error) {
+                    return console.dir(error);
+                }
+                let t1 = JSON.parse(body);
+
+                Request.get(API + "/teams/" + match.team2_id, (error, response, body) => {
+                    if(error) {
+                        return console.dir(error);
+                    }
+                    let t2 = JSON.parse(body);
+
+                    res.render("admin/matches/update", {
+                        t1: t1,
+                        t2: t2,
+                        match: match,
+                        logged : req.logged,
+                        captain : req.captain,
+                        admin : req.admin,
+                    })
+                });
+                
+            });
+        });
+
+    }
+}
+
 exports.match = function(req, res) {
     if(req.method == "POST") {
         let obj = {}
