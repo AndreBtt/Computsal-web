@@ -11,6 +11,8 @@ router.use('/criarGrupo', controller.createGroup)
 router.use('/horarios', controller.time)
 router.use('/jogos', controller.matches)
 router.use('/partida/:id', controller.match)
-router.use('/partidaPassada/:id', controller.previouMatch)
+router.use('/partidaPassada/:id', controller.previousMatch)
+router.use('/proximosJogos/atualizar', controller.nextMatchesUpdate)
+router.use('/proximosJogos', controller.nextMatch)
 
 module.exports = router

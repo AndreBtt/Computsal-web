@@ -265,7 +265,7 @@ exports.matches = function(req, res) {
     });
 }
 
-exports.previouMatch = function(req, res) {
+exports.previousMatch = function(req, res) {
     if(req.method == "PUT") {
         let matchID = req.body.id
         let players = req.body.players
@@ -417,5 +417,64 @@ exports.match = function(req, res) {
                 
             });
         });
+    }
+}
+
+exports.nextMatch = function(req, res) {
+    if(req.method == "GET") {
+        res.render('admin/nextMatches/index', {
+            logged : req.logged,
+            captain : req.captain,
+            admin : req.admin})
+    } else if(req.method == "POST") {
+        // it can create or generate
+        let type = req.body.type
+        
+        if(type == "create") {
+            // create next matches
+
+        } else {
+            // generate next matches
+            Request({
+                url: API + "/generateNextMatches",
+                method: "POST",
+                json: true
+            }, function (error, response, body){
+                if(error) {
+                    res.end('{"status" : "fail"}');
+                } else {
+                    res.end('{"status" : "success"}');
+                }
+            });
+        }
+    }
+}
+
+exports.nextMatchesUpdate = function(req, res) {
+    if(req.method == "GET") {
+        Request.get(API + "/nextMatches", (error, response, body) => {
+            if(error) {
+                return console.dir(error);
+            }
+            let matches = JSON.parse(body)
+
+            Request.get(API + "/teams", (error, response, body) => {
+                if(error) {
+                    return console.dir(error);
+                }
+                let teams = JSON.parse(body)
+
+                res.render('admin/nextMatches/update', {
+                    teams : teams,
+                    matches : matches,
+                    logged : req.logged,
+                    captain : req.captain,
+                    admin : req.admin})
+            });
+    
+            
+        });
+    } else if(req.method == "PUT") {
+
     }
 }
