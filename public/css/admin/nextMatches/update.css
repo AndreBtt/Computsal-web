@@ -79,6 +79,10 @@
     outline: none;
 }
 
+#matches {
+    margin-top: 15px;
+}
+
 @media(min-width:768px) {
     .displayTime {
         font-size: 30px;

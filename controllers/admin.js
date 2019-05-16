@@ -482,14 +482,24 @@ exports.nextMatchesUpdate = function(req, res) {
                             }
                         }
                     }
-
-                    res.render('admin/nextMatches/updatePhase', {
-                        times : times,
-                        teams : teams,
-                        matches : matches,
-                        logged : req.logged,
-                        captain : req.captain,
-                        admin : req.admin})
+                    if(!(matches.length == 0 || matches[0].type == 0)) {
+                        res.render('admin/nextMatches/updatePhase', {
+                            times : times,
+                            teams : teams,
+                            matches : matches,
+                            logged : req.logged,
+                            captain : req.captain,
+                            admin : req.admin})
+                    } else {
+                        res.render('admin/nextMatches/updateElimination', {
+                            times : times,
+                            teams : teams,
+                            matches : matches,
+                            logged : req.logged,
+                            captain : req.captain,
+                            admin : req.admin})
+                    }
+                    
                 });
             });
         });
