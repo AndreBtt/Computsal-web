@@ -52,3 +52,47 @@
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
 }
+
+#warningText, #warningTextTime, #warningTextSend {
+    display:none; 
+    color: #ff0000;
+}
+
+#warningTextSend {
+    font-size: 15px;
+}
+
+#opposingTeam {
+    font-size: 25px;
+}
+
+#matchTimeTeam1, #matchTimeTeam2, #matchTimeTime{
+    font-size: 25px;
+}
+
+#send {
+    margin-top: 45px;
+    outline: none;
+}
+
+#back-button {
+    outline: none;
+}
+
+@media(min-width:768px) {
+    .displayTime {
+        font-size: 30px;
+    }
+
+    .displayTeam {
+        font-size: 35px;
+    }
+
+    #send {
+        margin-top: 70px;
+    }
+
+    #warningTextSend {
+        font-size: 20px;
+    }
+}

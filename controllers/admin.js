@@ -464,17 +464,59 @@ exports.nextMatchesUpdate = function(req, res) {
                 }
                 let teams = JSON.parse(body)
 
-                res.render('admin/nextMatches/update', {
-                    teams : teams,
-                    matches : matches,
-                    logged : req.logged,
-                    captain : req.captain,
-                    admin : req.admin})
+                Request.get(API + "/times", (error, response, body) => {
+                    if(error) {
+                        return console.dir(error);
+                    }
+                    let times = JSON.parse(body)
+
+                    for(let i = 0; i < times.length; i++) {
+                        times[i].time = times[i].time.substring(0, times[i].time.length - 3)
+                    }
+
+                    for(let i = 0; i < matches.length; i++) {
+                        matches[i].time = matches[i].time.substring(0, matches[i].time.length - 3)
+                        for(let j = 0; j < times.length; j++) {
+                            if(times[j].time == matches[i].time) {
+                                matches[i]["time_id"] = times[j].id
+                            }
+                        }
+                    }
+
+                    res.render('admin/nextMatches/updatePhase', {
+                        times : times,
+                        teams : teams,
+                        matches : matches,
+                        logged : req.logged,
+                        captain : req.captain,
+                        admin : req.admin})
+                });
             });
-    
-            
         });
     } else if(req.method == "PUT") {
+        let matches = req.body.matches
 
+        if(matches == undefined) {
+            matches = []
+        }
+        
+        for(let i = 0; i < matches.length; i++) {
+            matches[i].id = parseInt(matches[i].id, 10)
+            matches[i].type = parseInt(matches[i].type, 10)
+            matches[i].time = parseInt(matches[i].time, 10)
+        }
+
+        Request({
+            url: API + "/nextMatches",
+            method: "PUT",
+            json: true,   
+            body: matches
+        }, function (error, response, body){
+            if(error) {
+                res.end('{"status" : "fail"}');
+            } else {
+                res.end('{"status" : "success"}');
+            }
+        });
     }
 }

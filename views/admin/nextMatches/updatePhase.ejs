@@ -53,17 +53,25 @@
                 <div class="ranking">
                     <div class="jogador">
                         <div class="col-lg-5 col-md-5 col-xs-6">
-                            <span id="team1<%=matches[i].id%>" class="click" onclick="updateTeam('team1<%=matches[i].id%>', 'team2<%=matches[i].id%>')"><%= matches[i].team1 %></span>
+                            <span id="team1<%=matches[i].id%>" class="click displayTeam" onclick="updateTeam('team1<%=matches[i].id%>', 'team2<%=matches[i].id%>')"><%= matches[i].team1 %></span>
                         </div>
                         <div class="col-lg-2 col-md-2 col-xs-6 text-center">
-                            <span id="time<%=matches[i].id%>"><%= matches[i].time.substring(0, matches[i].time.length - 3) %></span>
+                            <span id="time<%=matches[i].id%>" class="click displayTime" onclick="updateTime('time<%=matches[i].id%>', '<%=matches[i].id%>')"><%= matches[i].time%></span>
+                            <div id="time<%=matches[i].id%>ID" style="display:none;"><%= matches[i].time_id%></div>
                         </div>
                         <div class="col-lg-5 col-md-5 col-xs-6 text-right">
-                            <span id="team2<%=matches[i].id%>" class="click" onclick="updateTeam('team2<%=matches[i].id%>', 'team1<%=matches[i].id%>')"><%= matches[i].team2 %></span>
+                            <span id="team2<%=matches[i].id%>" class="click displayTeam" onclick="updateTeam('team2<%=matches[i].id%>', 'team1<%=matches[i].id%>')"><%= matches[i].team2 %></span>
                         </div> 
                     </div>
                 </div>
             <% } %>
+        <h4 id="warningTextSend"> </h4>
+
+        </div>
+
+        <div class="row text-center col-lg-4 col-lg-offset-4 col-md-4 col-md-offset-4 col-xs-6 col-xs-offset-3">
+            <button id="send" onclick="send()" class="btn btn-primary btn-block btn-lg" >Finalizar</button>
+            <a id="sendClick" class="page-scroll" data-toggle="modal" href="#resultModal" style="display:none;"></a>
         </div>
         
     </section>
@@ -79,7 +87,7 @@
                 </div>
                 <div class="text-center">
                     <div class="dropdown">
-                        <h3 onclick="dropDown()" class="dropbtn" style="color: #43b699">Times</h3>
+                        <h3 onclick="dropDown()" class="dropbtn click" style="color: #43b699">Times</h3>
                         <div id="myDropdown" class="dropdown-content">
                             <% for (var i = 0; i < teams.length; i++) { %>
                                 <h2 onclick="updateCurrTeam('<%=teams[i].name%>')" class="teamNameList click"><%=teams[i].name%></h2>
@@ -96,6 +104,65 @@
                     <h2 onclick="updateTable()" class="col-lg-12 col-md-12 col-xs-12 text-center click" >Atualizar</h2>
                 </div>
 
+                <div class="contact-form row">
+                    <h5 id="warningText" class="col-lg-12 col-md-12 col-xs-12"></h5>
+                </div>
+
+            </div>
+        </div>
+        </div>
+    </div>
+
+    <a id="updateTime" class="page-scroll" data-toggle="modal" href="#updateTimeModal" style="display:none;"></a>
+    <div id="updateTimeModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="text-center">
+                    <h3>Escolha o horário do jogo entre:</h3>
+                    <div class="contact-form row">
+                        <div id="matchTimeTeam1" class="col-lg-5 col-md-5 col-xs-5"></div>
+                        <div id="matchTimeTime" class="col-lg-2 col-md-2 col-xs-2">x</div>
+                        <div id="matchTimeTeam2" class="col-lg-5 col-md-5 col-xs-5"></div>
+                    </div>
+                    
+                </div>
+                <div class="text-center">
+                    <div class="dropdown">
+                        <h3 onclick="dropDownTime()" class="dropbtnTime click" style="color: #43b699">Horários</h3>
+                        <div id="myDropdownTime" class="dropdown-content">
+                            <% for (var i = 0; i < times.length; i++) { %>
+                                <h2 onclick="updateCurrTime('<%=times[i].time%>', '<%=times[i].id%>')" class="teamNameList click"><%=times[i].time%></h2>
+                            <% } %>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-form row">
+                    <h2 id="currTime" class="col-lg-12 col-md-12 col-xs-12 text-center"></h2>
+                </div>
+
+                <div class="contact-form row" style="margin-top:15px;">
+                    <h2 onclick="updateTableTime()" class="col-lg-12 col-md-12 col-xs-12 text-center click" >Atualizar</h2>
+                </div>
+
+                <div class="contact-form row">
+                    <h5 id="warningTextTime" class="col-lg-12 col-md-12 col-xs-12"></h5>
+                </div>
+
+            </div>
+        </div>
+        </div>
+    </div>
+
+    <div id="resultModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div id="modaltext"></div>
+                <div class="text-center">
+                    <a href="/"><button id="back-button" class="btn btn-primary btn-lg" style="width:50%; margin-top: 15px;" >Voltar</button></a>
+                </div>
             </div>
         </div>
         </div>
@@ -158,6 +225,6 @@
     <script src="/js/jquery.easing.min.js"></script>
     <script src="/js/home/wow.js"></script>
     <script src="/js/home/index.js"></script>
-    <script src="/js/admin/nextMatches/update.js"></script>
+    <script src="/js/admin/nextMatches/updatePhase.js"></script>
   </body>
 </html>  
