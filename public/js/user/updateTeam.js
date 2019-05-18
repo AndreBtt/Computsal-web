@@ -279,3 +279,16 @@ function createPlayer() {
     newPlayers++
     CreatedPlayers[input.id] = ""
 }
+
+function readURL(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function(e) {
+            $('.file-upload-image').attr('src', e.target.result);
+            $('.file-upload-content').show();
+        };
+
+        reader.readAsDataURL(input.files[0]);
+    }
+}  

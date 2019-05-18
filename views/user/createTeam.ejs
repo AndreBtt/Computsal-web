@@ -43,19 +43,23 @@
 
         <div class="container">
             <div class="contact-form row col-md-8 col-md-offset-2">
+                <div class="image-group text-center" >
+                    <h2 class="clickGreen" id="clickPhoto" onclick="$('#photoInput').trigger('click')">Adicionar escudo do time</h2>
+                    <input id="photoInput" style="display: none;" type='file' onchange="readURL(this);" accept="image/*" />
+
+                    <div class="file-upload-content">
+                        <img class="file-upload-image" src="#" alt="your image" />
+                    </div>
+                </div>
+
                 <div class="group">
                     <input autocomplete="off" id="teamName" class="text-center" type="text" placeholder="Nome do time"/>
                     <div class="bar"></div>
                     <span id="teamRequire" class="require-text">*insira um nome para o time</span>
                 </div>
-
-                <div class="group">
-                    <input class="text-center" type="text" placeholder="Foto" />
-                    <div class="bar"></div>
-                </div>
                 
                 <div class="group">
-                    <input  id="captain" class="text-center" type="text" placeholder="Capitão" autocomplete="off" />
+                    <input id="captain" class="text-center" type="text" placeholder="Capitão" autocomplete="off" />
                     <div class="bar"></div>
                     <span id="captainRequire" class="require-text">*insira um capitão para o time</span>
                 </div>
@@ -70,31 +74,12 @@
                 <input id="email" type="hidden" value="<%= email %>">
 
                 <div class="col-md-12 text-center">
-                    <button id="send" class="btn btn-primary btn-block btn-lg" >Criar</button>
+                    <button id="send" onclick="createTeam()" class="btn btn-primary btn-block btn-lg" >Criar</button>
                     <a id="sendClick" class="page-scroll" data-toggle="modal" href="#resultModal" style="display:none;"></a>
                 </div>
             </div>
         </div>
     </section>
-
-
-    <div id="login" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-body">
-                <% if(captain) { %>
-                    <a href="/atualizarTime"><h2 class="text-center">Atualizar meu time</h2></a>
-                    <a href="/agendarHorario"><h2 class="text-center">Agendar horario</h2></a>
-                <% } else { %>
-                    <a href="/criarTime"><h2 class="text-center">Criar meu time</h2></a>
-                <% } %>
-                <% if(admin) { %>
-                    <a href="/admin"><h2 class="text-center">Configurar campenato</h2></a>
-                <% } %>
-            </div>
-        </div>
-        </div>
-    </div>
 
     <div id="resultModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false">
         <div class="modal-dialog">
@@ -108,6 +93,69 @@
         </div>
         </div>
     </div>
+
+    <% if(logged) { %>
+        <div id="login" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <% if(captain) { %>
+                        <a href="/atualizarTime"><h2 class="text-center">Atualizar meu time</h2></a>
+                        <a href="/agendarHorario"><h2 class="text-center">Agendar horario</h2></a>
+                    <% } else { %>
+                        <a href="/criarTime"><h2 class="text-center">Criar meu time</h2></a>
+                    <% } %>
+                    <% if(admin) { %>
+                        <a href="/admin"><h2 class="text-center">Configurar campenato</h2></a>
+                    <% } %>
+                    <h2 onclick="logOutAccount()" style="color: #ce2029" class="text-center clickRed">Sair</h2>
+                </div>
+            </div>
+            </div>
+        </div>
+    <% } else { %>
+        <div id="login" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <h2 class="text-center">Entrar / Criar conta</h2>
+                        <form class="contact-form row">
+                            <div class="col-md-6">
+                                <label></label>
+                                <input id="emailAccount" type="text" class="form-control" placeholder="Email">
+                            </div>
+                            <div class="col-md-6">
+                                <label></label>
+                                <input id="passwordAccount" type="password" class="form-control" placeholder="Senha">
+                            </div>
+                            <div id="warningTextAccountDisplay" style="display: none;" class="col-md-12">
+                                <label></label>
+                                <h4 style="color: #ff0000;" id="warningTextAccount"></h4>
+                            </div>
+                            <div class="col-md-12">
+                                <label></label>
+                                <button type="button" class="btn btn-primary btn-block btn-lg">Falta o face aqui </button>
+                            </div>
+                            <div class="col-md-6">
+                                <label></label>
+                                <h2 onclick="createAccount()" class="text-center clickGreen">Criar</h2>
+                            </div>
+                            <div class="col-md-6">
+                                <label></label>
+                                <h2 onclick="logInAccount()" class="text-center clickGreen">Entrar</h2>
+                            </div>
+                        </form>
+                        <form id="spinnerLogin" style="display: none;" class="contact-form row">
+                            <div class="text-center">
+                                <label></label>
+                                <div class="lds-dual-ring"></div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <% } %>
 
     <!--scripts loaded here -->
     <script src="/js/jquery.min.js"></script>

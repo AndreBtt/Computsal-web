@@ -1,16 +1,17 @@
 var Request = require("request");
+let firebase = require('firebase')
 
 // let API = "https://floating-reef-49922.herokuapp.com"
 let API = "http://localhost:8080"
 
 exports.createTeam = function(req, res) {
-
     if(req.method === "POST") {
         // receive data to create team    
         let name = req.body.name;
         let email = req.body.email;
         let captain = req.body.captain;
         let players = req.body.players
+        let photo = req.body.photo
 
         // no players
         if(players === undefined) {
@@ -19,7 +20,7 @@ exports.createTeam = function(req, res) {
 
         let teamCreate = {
             "name" : name,
-            "photo": "www",
+            "photo": photo,
             "players": 
                 [
                     {
@@ -48,10 +49,10 @@ exports.createTeam = function(req, res) {
             }
         });
     } else {
-        // Get, just rend page
         res.render('user/createTeam',{
-            admin : req.admin,
+            logged : req.logged,
             captain : req.captain,
+            admin : req.admin,
             email : req.email
         })
     }
@@ -110,7 +111,6 @@ exports.updateTeam = function(req, res) {
 
 
     } else {
-        // Get, just rend page
         Request.get(API + "/teams/" + req.teamID, (error, response, body) => {
             if(error) {
                 return console.dir(error);
@@ -124,6 +124,7 @@ exports.updateTeam = function(req, res) {
                 }
             }
             res.render("user/updateTeam", {
+                logged : req.logged,
                 captain : req.captain,
                 admin : req.admin,
                 team : team
@@ -187,7 +188,6 @@ function createdPlayers(req, res, newPlayers, teamName) {
 }
 
 exports.schedule = function(req, res) {
-    // get user email
     let email = req.email
 
     Request.get(API + "/captainTeam/" + email, (error, response, body) => {
@@ -237,9 +237,61 @@ function scheduleTeam(teamID, req, res) {
             let schedule = JSON.parse(body)
             res.render("user/schedule", {
                 schedule: schedule,
+                logged : req.logged,
                 captain : req.captain,
                 admin : req.admin
             })
         });
     }
+}
+
+exports.createAccount = function(req, res) {
+    let email = req.body.email
+    let password = req.body.password
+
+    firebase.auth().createUserWithEmailAndPassword(email, password).catch((error) => {
+        console.log(error)
+
+        if(error.message == "The email address is already in use by another account.") {
+            res.end('{"status" : "Email já cadastrado."}');
+        }
+
+        res.end('{"status" : "Algo de errado aconteceu, verifique sua conexão e tente novamente mais tarde."}');
+        
+    }).then(() => {
+        res.end('{"status" : "success"}');
+    })
+}
+
+exports.logIn = function(req, res) {
+    let email = req.body.email;
+    let password = req.body.password;
+    
+    firebase.auth().signInWithEmailAndPassword(email, password).catch((error) => {
+        console.log(error)
+        res.end('{"status" : "fail"}');
+
+    }).then(function () {
+        res.end('{"status" : "success"}');
+
+    });
+}
+
+exports.logOut = function(req, res) {
+    firebase.auth().signOut().catch((error) => {
+        console.log(error)
+        res.end('{"status" : "fail"}');
+
+    }).then(function () {
+        res.end('{"status" : "success"}');
+
+    });
+}
+
+exports.savePhoto = function(req, res) {
+    var storageRef = firebase.storage().ref();
+
+    // storageRef.put(req.body).then(function(snapshot) {
+    //     console.log('Uploaded a blob or file!');
+    // });
 }

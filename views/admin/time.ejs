@@ -114,24 +114,6 @@
         </div>
     </div>
 
-    <div id="login" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-body">
-                <% if(captain) { %>
-                    <a href="/atualizarTime"><h2 class="text-center">Atualizar meu time</h2></a>
-                    <a href="/agendarHorario"><h2 class="text-center">Agendar horario</h2></a>
-                <% } else { %>
-                    <a href="/criarTime"><h2 class="text-center">Criar meu time</h2></a>
-                <% } %>
-                <% if(admin) { %>
-                    <a href="/admin"><h2 class="text-center">Configurar campenato</h2></a>
-                <% } %>
-            </div>
-        </div>
-        </div>
-    </div>
-
     <div id="resultModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false">
         <div class="modal-dialog">
         <div class="modal-content">
@@ -144,6 +126,69 @@
         </div>
         </div>
     </div>
+
+    <% if(logged) { %>
+        <div id="login" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <% if(captain) { %>
+                        <a href="/atualizarTime"><h2 class="text-center">Atualizar meu time</h2></a>
+                        <a href="/agendarHorario"><h2 class="text-center">Agendar horario</h2></a>
+                    <% } else { %>
+                        <a href="/criarTime"><h2 class="text-center">Criar meu time</h2></a>
+                    <% } %>
+                    <% if(admin) { %>
+                        <a href="/admin"><h2 class="text-center">Configurar campenato</h2></a>
+                    <% } %>
+                    <h2 onclick="logOutAccount()" style="color: #ce2029" class="text-center clickRed">Sair</h2>
+                </div>
+            </div>
+            </div>
+        </div>
+    <% } else { %>
+        <div id="login" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <h2 class="text-center">Entrar / Criar conta</h2>
+                        <form class="contact-form row">
+                            <div class="col-md-6">
+                                <label></label>
+                                <input id="emailAccount" type="text" class="form-control" placeholder="Email">
+                            </div>
+                            <div class="col-md-6">
+                                <label></label>
+                                <input id="passwordAccount" type="password" class="form-control" placeholder="Senha">
+                            </div>
+                            <div id="warningTextAccountDisplay" style="display: none;" class="col-md-12">
+                                <label></label>
+                                <h4 style="color: #ff0000;" id="warningTextAccount"></h4>
+                            </div>
+                            <div class="col-md-12">
+                                <label></label>
+                                <button type="button" class="btn btn-primary btn-block btn-lg">Falta o face aqui </button>
+                            </div>
+                            <div class="col-md-6">
+                                <label></label>
+                                <h2 onclick="createAccount()" class="text-center clickGreen">Criar</h2>
+                            </div>
+                            <div class="col-md-6">
+                                <label></label>
+                                <h2 onclick="logInAccount()" class="text-center clickGreen">Entrar</h2>
+                            </div>
+                        </form>
+                        <form id="spinnerLogin" style="display: none;" class="contact-form row">
+                            <div class="text-center">
+                                <label></label>
+                                <div class="lds-dual-ring"></div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <% } %>
 
     <!--scripts loaded here -->
     <script src="/js/jquery.min.js"></script>

@@ -5,7 +5,9 @@ let API = "http://localhost:8080"
 
 exports.index = function(req, res) {
     res.render('admin/index', {
-        captain : req.captain
+        logged : req.logged,
+        captain : req.captain,
+        admin : req.admin
     })
 }
 
@@ -138,7 +140,6 @@ exports.group = function(req, res) {
 }
 
 exports.teams = function(req, res) {
-
     if(req.method === "DELETE") {
         let teamsID = req.body.ids
 
@@ -171,7 +172,9 @@ exports.teams = function(req, res) {
             let teams = JSON.parse(body)
             res.render('admin/teams', {
                 teams : teams,
-                captain : req.captain
+                logged : req.logged,
+                captain : req.captain,
+                admin : req.admin
             })
         });
     }
@@ -482,7 +485,7 @@ exports.nextMatchesUpdate = function(req, res) {
                             }
                         }
                     }
-                    if(!(matches.length == 0 || matches[0].type == 0)) {
+                    if(matches.length == 0 || matches[0].type == 0) {
                         res.render('admin/nextMatches/updatePhase', {
                             times : times,
                             teams : teams,

@@ -1,3 +1,27 @@
+/* --- img selected and display --- */
+
+.file-upload-content {
+  display: none;
+  text-align: center;
+}
+
+.file-upload-image {
+  max-height: 200px;
+  max-width: 200px;
+  margin: auto;
+  padding: 20px;
+}
+
+.image-group {
+  width: 100%;
+  margin-top: 20px;
+  margin-bottom: 15px;
+  overflow: hidden;
+  position: relative;
+}
+
+/* -------------------------------- */
+
 .form-text {
     display: block;
     width: 100%;
@@ -22,10 +46,10 @@
 }
 
 .group {
-    width: 100%;
-    height: 110px;
-    overflow: hidden;
-    position: relative;
+  width: 100%;
+  height: 110px;
+  overflow: hidden;
+  position: relative;
 }
 
 .require-text {
@@ -46,6 +70,7 @@ input {
     transition: 0.3s ease;
     cursor: text;
 }
+
 input:focus {
   outline: none;
 }
@@ -53,11 +78,13 @@ input:focus {
 input:focus ~ .bar:before {
   transform: translateX(0);
 }
+
 .bar {
   height: 1px;
   background: white;
   position: relative;
 }
+
 .bar:before {
   content: '';
   position: absolute;
@@ -93,50 +120,54 @@ input:focus ~ .bar:before {
 button {
   outline: none;
 }
-
-  /* Place Holder CSS for Focus */
+/* Place Holder CSS for Focus */
 :hover::-webkit-input-placeholder {
-    opacity: 0.75;
-    -webkit-transition: opacity 0.35s ease-in-out;
-    transition: opacity 0.35s ease-in-out;
-  }
-  :hover:-moz-placeholder {
-    opacity: 0.75;
-    -moz-transition: opacity 0.35s ease-in-out;
-    transition: opacity 0.35s ease-in-out;
-  }
-  :hover::-moz-placeholder {
-    opacity: 0.75;
-    -moz-transition: opacity 0.35s ease-in-out;
-    transition: opacity 0.35s ease-in-out;
-  }
-  :hover:-ms-input-placeholder {  
-    opacity: 0.75;
-    -ms-transition: opacity 0.35s ease-in-out;
-    transition: opacity 0.35s ease-in-out;
-  }
-  
+  opacity: 0.75;
+  -webkit-transition: opacity 0.35s ease-in-out;
+  transition: opacity 0.35s ease-in-out;
+}
 
-  :focus::-webkit-input-placeholder {
-    opacity: 0;
-    -webkit-transition: opacity 0.35s ease-in-out;
-    transition: opacity 0.35s ease-in-out;
-  }
-  :focus:-moz-placeholder {
-    opacity: 0;
-    -moz-transition: opacity 0.35s ease-in-out;
-    transition: opacity 0.35s ease-in-out;
-  }
-  :focus::-moz-placeholder {
-    opacity: 0;
-    -moz-transition: opacity 0.35s ease-in-out;
-    transition: opacity 0.35s ease-in-out;
-  }
-  :focus:-ms-input-placeholder {  
-    opacity: 0;
-    -ms-transition: opacity 0.35s ease-in-out;
-    transition: opacity 0.35s ease-in-out;
-  }
+:hover:-moz-placeholder {
+  opacity: 0.75;
+  -moz-transition: opacity 0.35s ease-in-out;
+  transition: opacity 0.35s ease-in-out;
+}
+
+:hover::-moz-placeholder {
+  opacity: 0.75;
+  -moz-transition: opacity 0.35s ease-in-out;
+  transition: opacity 0.35s ease-in-out;
+}
+
+:hover:-ms-input-placeholder {  
+  opacity: 0.75;
+  -ms-transition: opacity 0.35s ease-in-out;
+  transition: opacity 0.35s ease-in-out;
+}
+
+:focus::-webkit-input-placeholder {
+  opacity: 0;
+  -webkit-transition: opacity 0.35s ease-in-out;
+  transition: opacity 0.35s ease-in-out;
+}
+
+:focus:-moz-placeholder {
+  opacity: 0;
+  -moz-transition: opacity 0.35s ease-in-out;
+  transition: opacity 0.35s ease-in-out;
+}
+
+:focus::-moz-placeholder {
+  opacity: 0;
+  -moz-transition: opacity 0.35s ease-in-out;
+  transition: opacity 0.35s ease-in-out;
+}
+
+:focus:-ms-input-placeholder {  
+  opacity: 0;
+  -ms-transition: opacity 0.35s ease-in-out;
+  transition: opacity 0.35s ease-in-out;
+}
 
 
 @media(min-width:768px) {

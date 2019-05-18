@@ -1,5 +1,9 @@
 const express = require('express');
 var bodyParser = require('body-parser');
+
+// get firebase config and initialize it
+require('./config/firebaseConnection');
+
 const app = express();
 
 app.set('view engine', 'ejs');

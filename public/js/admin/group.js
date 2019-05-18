@@ -56,7 +56,7 @@ $(document).ready(function() {
                     document.getElementById("modaltext").appendChild(h2)
 
                     let h3 = document.createElement("h3")
-                    h3.innerHTML = "O grupo foi deletado com sucesso !"
+                    h3.innerHTML = "O grupo foi atualizado com sucesso !"
                     document.getElementById("modaltext").appendChild(h3)
 
                     document.getElementById('sendClick').click();
@@ -68,7 +68,7 @@ $(document).ready(function() {
                     document.getElementById("modaltext").appendChild(h2)
 
                     let h3 = document.createElement("h3")
-                    h3.innerHTML = "Não conseguimos deletar o grupo, tente novamente mais tarde."
+                    h3.innerHTML = "Não conseguimos atualizar o grupo, tente novamente mais tarde."
                     document.getElementById("modaltext").appendChild(h3)
 
                     document.getElementById('sendClick').click();
