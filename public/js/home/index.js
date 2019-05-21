@@ -27,10 +27,6 @@
         $('.navbar-toggle:visible').click();
     });
 
-    $('#galleryModal').on('show.bs.modal', function (e) {
-       $('#galleryImage').attr("src",$(e.relatedTarget).data("src"));
-    });
-
 })(jQuery);
 
 function createAccount() {
@@ -180,4 +176,50 @@ function logOutAccount() {
         }
     });
 
+}
+
+function forgetPassword() {
+    $("#spinnerLogin").show()
+
+    let email = $("#emailAccount").val().trim()
+
+    // melhorar o modo que verifica erro [aUb]*@....
+    if(email == "") {
+        $("#warningTextAccount").text("*preencha seu email")
+        $("#warningTextAccountDisplay").show()
+        return
+    }
+
+    let obj = {}
+    obj.email = email
+
+    $.ajax({
+        url: '/user/forgetPassword',
+        type: 'POST',
+        data: obj,
+        success: function(result) {
+            let response = JSON.parse(result)
+            if(response.status === "success") {
+                document.getElementById('login').click()
+
+                let h3 = document.createElement("h3")
+                h3.innerHTML = "Um email foi enviado com os passos para restaurar a sua senha."
+                document.getElementById("accountModalText").appendChild(h3)
+
+                document.getElementById('accountClick').click();
+            } else {
+                document.getElementById('login').click()
+                
+                let h2 = document.createElement("h2")
+                h2.innerHTML = "Ooops!"
+                document.getElementById("accountModalText").appendChild(h2)
+
+                let h3 = document.createElement("h3")
+                h3.innerHTML = "Não conseguimos encontrar seu email."
+                document.getElementById("accountModalText").appendChild(h3)
+
+                document.getElementById('accountClick').click();
+            }
+        }
+    });
 }

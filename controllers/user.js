@@ -6,12 +6,14 @@ let API = "http://localhost:8080"
 
 exports.createTeam = function(req, res) {
     if(req.method === "POST") {
+        console.log(req.body)
         // receive data to create team    
         let name = req.body.name;
         let email = req.body.email;
         let captain = req.body.captain;
         let players = req.body.players
-        let photo = req.body.photo
+        // let photo = req.body.photo
+        let photo = ""
 
         // no players
         if(players === undefined) {
@@ -289,9 +291,20 @@ exports.logOut = function(req, res) {
 }
 
 exports.savePhoto = function(req, res) {
-    var storageRef = firebase.storage().ref();
+    // var storageRef = firebase.storage();
 
     // storageRef.put(req.body).then(function(snapshot) {
     //     console.log('Uploaded a blob or file!');
     // });
+}
+
+exports.forgetPassword = function(req, res) {
+    var auth = firebase.auth();
+    let email = req.body.email;
+
+    auth.sendPasswordResetEmail(email).then(function() {
+        res.end('{"status" : "success"}');
+    }).catch(function(error) {
+        res.end('{"status" : "fail"}');
+    });
 }
