@@ -6,7 +6,6 @@ let API = "http://localhost:8080"
 
 exports.createTeam = function(req, res) {
     if(req.method === "POST") {
-        console.log(req.body)
         // receive data to create team    
         let name = req.body.name;
         let email = req.body.email;
@@ -64,7 +63,8 @@ exports.updateTeam = function(req, res) {
     if(req.method === "PUT") {
         let id = req.body.id
         let name = req.body.name
-        let photo = req.body.photo
+        // let photo = req.body.photo
+        let photo = ""
         let players = req.body.players
         let playersDel = req.body.deletedPlayers
         let newPlayers = req.body.newPlayers
