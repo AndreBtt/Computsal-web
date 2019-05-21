@@ -8,7 +8,7 @@ $(document).ready(function() {
     })
 
     $("#delete").click(function () {
-        $("#confirmModal").css("display", "none");
+        $("#spinnerLogin").show()
 
         $.ajax({
             url: '/admin/times',
@@ -18,6 +18,7 @@ $(document).ready(function() {
             },
             success: function(result) {
                 let response = JSON.parse(result)
+                $("#confirmModal").css("display", "none");
                 if(response.status === "success") {
                     let h2 = document.createElement("h2")
                     h2.innerHTML = "Parabens!"
