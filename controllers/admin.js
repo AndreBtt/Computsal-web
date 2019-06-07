@@ -1,7 +1,7 @@
 var Request = require("request");
 
 // let API = "https://floating-reef-49922.herokuapp.com"
-let API = "http://localhost:8080"
+let API = "http://localhost:3000"
 
 exports.index = function(req, res) {
     res.render('admin/index', {

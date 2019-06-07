@@ -2,7 +2,7 @@ var Request = require("request");
 let firebase = require('firebase')
 
 // let API = "https://floating-reef-49922.herokuapp.com"
-let API = "http://localhost:8080"
+let API = "http://localhost:3000"
 
 exports.createTeam = function(req, res) {
     if(req.method === "POST") {
